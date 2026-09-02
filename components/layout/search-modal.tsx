@@ -172,6 +172,7 @@ function buildEntries(about: AboutData): SearchEntry[] {
       href: "/cv",
       icon: CvPdfIcon,
       section: "Links",
+      external: true,
     },
     {
       label: "CV Word",
@@ -179,6 +180,7 @@ function buildEntries(about: AboutData): SearchEntry[] {
       href: "/cv-latest",
       icon: CvWordIcon,
       section: "Links",
+      external: true,
     },
     {
       label: "CV Copy",
@@ -186,6 +188,7 @@ function buildEntries(about: AboutData): SearchEntry[] {
       href: "/cv-copy",
       icon: CvCopyIcon,
       section: "Links",
+      external: true,
     },
   );
 
