@@ -183,7 +183,7 @@ function Intro({ about, sponsorUrl }: { about: AboutData; sponsorUrl: string }) 
             ever takes effect where the original was broken.
           */}
           <div className="flex flex-wrap items-center justify-between gap-y-2 mb-2 sm:mb-3">
-            <p className="text-lg sm:text-xl font-medium">Assalamu&apos;alaikum</p>
+            <p className="text-lg sm:text-xl font-medium">Hello, Mabuhay!</p>
             {/*
               Sized to match the mobile drawer's badges rather than carrying a
               second, larger scale for the same three flags. Both labels are
@@ -213,7 +213,7 @@ function Intro({ about, sponsorUrl }: { about: AboutData; sponsorUrl: string }) 
           <RichText html={about.stories_html} className="prose-stories" />
 
           <p className="text-lg sm:text-xl font-medium mt-3 sm:mt-3">
-            Wassalamu&apos;alaikum
+            Thank you for visiting my journey.
           </p>
         </div>
 
