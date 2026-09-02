@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Every rule the site has, imported rather than linked
+
+   Two groups, and the distinction is worth keeping straight.
+
+   The first eleven are hand-written because they express things utilities
+   cannot -- scrollbar pseudo-elements, the lightbox chrome, the tooltip, the
+   click spark, the admin's own drawn form controls. The last four were carved
+   out of *this* file, which had reached 1231 lines holding a 281-line palette
+   remap, nine keyframe blocks and Tailwind's wiring together; they are here
+   for legibility, not because they express anything special.
+
+   Being hand-written is separate from being bundled: importing them here means
+   they inherit the same hashing, minification and cache-busting as every other
+   rule. Served raw under fixed filenames instead, an edit to any of them stays
+   stale in browser and CDN caches indefinitely.
+
+   Order matters, and it is the whole reason the split below was safe. They
+   stay *unlayered* -- after `@import "tailwindcss"` but outside any `@layer`
+   -- because an unlayered rule beats every layered one, which is what a later
+   <link> gave them before. Wrapping them in a layer would flip that and let
+   Tailwind utilities win instead. Since order is the only thing deciding
+   conflicts between unlayered rules, the four extracted sheets are imported in
+   the sequence their contents held in this file, and the compiled stylesheet
+   is byte-for-byte what it was before the split.
+
+   Anything added here goes at the end, for the same reason.
+
+   Five of the first group carry their own `html[data-theme="light"]` blocks;
+   globalScrollbar.css also exports the shared `--scrollbar-*` tokens the
+   others reuse.
+   --------------------------------------------------------------------------- */
+@import "../styles/clickSpark.css";
+@import "../styles/skillSlider.css";
+@import "../styles/hideScroll.css";
+@import "../styles/sidebarSearch.css";
+@import "../styles/globalScrollbar.css";
+@import "../styles/tooltip.css";
+@import "../styles/imageLightbox.css";
+/* Rich-text body styling. New in the Next.js port -- it replaces the
+   per-block Tailwind classes the content used to carry. */
+@import "../styles/prose.css";
+@import "../styles/admin-motion.css";
+@import "../styles/admin-editor.css";
+@import "../styles/admin-controls.css";
+/* Split out of this file. Order reproduces the order they had here. */
+@import "../styles/theme-light.css";
+@import "../styles/theme-motion.css";
+@import "../styles/components.css";
+@import "../styles/animations.css";
+
+/* ---------------------------------------------------------------------------
+   Keep source detection off prose and off our own stylesheets
+
+   Tailwind v4 auto-detects sources by walking every non-gitignored file under
+   the project root and treating any word that parses as a class name as one in
+   use. Auto-detection is kept rather than replaced by a hand-written source
+   list: class strings are not confined to components -- the admin builds them
+   and helpers assemble them -- and enumerating sources by hand silently dropped
+   `placeholder-zinc-500` and `pl-6` when it was tried.
+
+   Four things are excluded. Markdown at the repository root is scanned like
+   everything else, and prose that merely *names* a utility is enough to emit
+   it: a single code comment using the word in an ordinary English sense keeps
+   the bare utility alive on its own. That is why the notes below describe those
+   class names rather than spelling any of them out. This file is scanned too.
+
+     ../styles  the stylesheets imported above. They *define* selectors rather
+                than use utilities, and property names like `border-radius`
+                parse as class-name candidates.
+     ../docs    the design notes, which discuss utilities by name.
+     ../*.md    README, CLAUDE, MIGRATION, AGENTS -- same reason.
+     ../.claude the plan files, same reason again.
+     ../scripts the check harnesses. They *query* class names rather than
+                authoring them, and one of them names a utility the site does
+                not use in order to assert it is absent -- which was enough, on
+                its own, to make that assertion fail.
+     *.test.ts  the unit tests, for the same reason: a test asserting on what
+                `projectStatusColor` returns has to name the classes it returns,
+                and a test for a class the site *stopped* using would keep it
+                alive by checking that it is gone.
+
+   Verify after any change here with `scripts/check-css-sources.mjs`, which
+   builds and fails if a utility the site does not use has been emitted.
+   --------------------------------------------------------------------------- */
+@source not "../styles";
+@source not "../docs";
+@source not "../*.md";
+@source not "../.claude";
+@source not "../scripts";
+@source not "**/*.test.ts";
+
+/* ---------------------------------------------------------------------------
+   No classes come from the database
+
+   There used to be an `@source inline(...)` list here, and its absence is the
+   point. Blog bodies and project descriptions were JSONB block arrays whose
+   blocks carried a `class` key -- utilities that appeared in no file, so source
+   scanning could not find them and Tailwind would not emit them. Twenty-nine
+   had to be listed by hand, re-extracted from the live data after every edit.
+
+   Those columns are gone; the bodies are HTML now, styled by element from
+   styles/prose.css. What keeps the list from coming back is
+   lib/utils/sanitize.ts, whose allow-list permits `class` on one element and
+   only matching `language-*`: appearance comes from the stylesheet, and stored
+   content cannot name a utility even if someone pastes one in.
+
+   Verified against the live data before the drop -- one class survived the
+   conversion of 20 posts and 64 projects, `language-python`, which is not a
+   utility.
+   --------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   Onest
+
+   The faces themselves come from `next/font/google`, which downloads them at
+   build time, serves them from this origin under /_next/static/media, and
+   writes one `@font-face` per subset with the `unicode-range` that selects it.
+   The call and the reasoning for its options are in `app/fonts.ts`.
+
+   What is left here is the wiring: `--font-onest` is the variable that call
+   declares, and it carries next/font's size-adjusted fallback face after the
+   real one, so text laid out before the download finishes is close enough in
+   metrics not to reflow when it arrives. Naming it through Tailwind's
+   `--font-sans` is what makes `font-sans` and the inherited body font both
+   resolve to Onest.
+   --------------------------------------------------------------------------- */
+
+@theme {
+    --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+}
