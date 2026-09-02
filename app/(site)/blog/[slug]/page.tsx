@@ -33,6 +33,7 @@ import { isoDateTime, longDateTime, slugify } from "@/lib/utils/format";
  */
 export async function generateStaticParams() {
   const posts = await getBlogs();
+  if (posts.length === 0) return [{ slug: "_empty" }];
   return posts.map(({ slug }) => ({ slug }));
 }
 

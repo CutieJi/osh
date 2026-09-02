@@ -11,6 +11,7 @@ import { LegalDocumentPage } from "@/components/site/legal-document";
 
 export async function generateStaticParams() {
   const documents = await getLegalDocuments();
+  if (documents.length === 0) return [{ slug: "_empty" }];
   return documents.map(({ slug }) => ({ slug }));
 }
 

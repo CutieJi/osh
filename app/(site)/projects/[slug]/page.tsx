@@ -21,6 +21,7 @@ import { localIconUrl } from "@/lib/utils/icon-url";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
+  if (projects.length === 0) return [{ slug: "_empty" }];
   return projects.map(({ slug }) => ({ slug }));
 }
 
