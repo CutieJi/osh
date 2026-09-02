@@ -86,7 +86,7 @@ export function ErrorPage({
             ))}
           </div>
 
-          <p className="mt-2 text-zinc-500">&copy; 2025 - {year} Ridwan Halim</p>
+          <p className="mt-2 text-zinc-500">&copy; 2025 - {year} Rosh Ingel</p>
         </div>
       </div>
     </main>

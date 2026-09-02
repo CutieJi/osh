@@ -6,18 +6,18 @@
  * a lag of weeks, not a refactor.
  */
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://ridwaanhall.com").replace(
+export const SITE_URL = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.netlify.app").replace(
   /\/+$/,
   "",
 );
 
-export const SITE_NAME = "ridwaanhall.com";
-export const AUTHOR = "Ridwan Halim";
+export const SITE_NAME = "roshingel.netlify.app";
+export const AUTHOR = "Rosh Ingel";
 
 export const DEFAULT_DESCRIPTION_LENGTH = 160;
 export const DEFAULT_OG_TYPE = "website";
 export const DEFAULT_TWITTER_CARD = "summary_large_image";
-export const DEFAULT_TWITTER_SITE = "@ridwaanhall";
+export const DEFAULT_TWITTER_SITE = "@roshingel";
 
 /**
  * The site-wide fallback social image.
@@ -51,10 +51,9 @@ export const CONTENT_TYPES = {
 
 export const COMMON_KEYWORDS = {
   personal: [
-    "ridwaanhall", "Ridwan Halim", "ridwaanhall.com",
-    "ridwaanhall blog", "ridwaanhall portfolio",
-    "software developer", "web developer", "python developer",
-    "machine learning engineer", "AI engineer", "full stack developer",
+    "Rosh Ingel", "roshingel", "roshingel.netlify.app", "cutieji",
+    "rosh ingel blog", "rosh ingel portfolio",
+    "database engineer", "web developer", "full stack developer",
   ],
   technical: [
     "Django", "Python", "JavaScript",
@@ -65,7 +64,7 @@ export const COMMON_KEYWORDS = {
     "tech insights", "development tips", "project showcase",
   ],
   location: [
-    "Indonesia", "Indonesian developer", "Southeast Asia",
-    "Jakarta developer", "Indonesian tech", "Southeast Asian tech",
+    "Philippines", "Filipino developer", "Southeast Asia",
+    "Philippine developer", "Philippine tech", "Southeast Asian tech",
   ],
 } as const;

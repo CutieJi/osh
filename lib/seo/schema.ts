@@ -147,7 +147,7 @@ export async function personSchema(about: AboutData): Promise<JsonLd> {
       ? { "@type": "Organization", name: current.company, url: current.website }
       : { "@type": "Organization", name: "Freelance" },
     description: about.short_description,
-    email: about.social_media.email || "hi@ridwaanhall.com",
+    email: about.social_media.email || "roshingel@gmail.com",
     alumniOf,
     knowsAbout: about.skills,
     workExperience,
@@ -165,8 +165,8 @@ export function websiteSchema(): JsonLd {
       "Personal portfolio and blog showcasing software development projects, technical insights, and professional journey",
     inLanguage: "en-US",
     keywords: [
-      "ridwaanhall", "ridwan halim", "software developer", "web development",
-      "python", "django", "machine learning", "portfolio",
+      "roshingel", "rosh ingel", "cutieji", "database engineer", "web development",
+      "full stack developer", "portfolio",
     ],
     // Deliberately no SearchAction -- see the module note.
     potentialAction: [
@@ -178,9 +178,9 @@ export function websiteSchema(): JsonLd {
       name: AUTHOR,
       url: SITE_URL,
       sameAs: [
-        "https://github.com/ridwaanhall",
-        "https://linkedin.com/in/ridwaanhall",
-        "https://twitter.com/ridwaanhall",
+        "https://github.com/cutieji",
+        "https://linkedin.com/in/roshingel",
+        "https://twitter.com/roshingel",
       ],
     },
   };

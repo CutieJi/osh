@@ -43,7 +43,7 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
   return (
     <html lang="en" className={onest.variable}>
       <body className="bg-black text-zinc-300">
-        <title>Something Went Wrong &middot; Ridwan Halim</title>
+        <title>Something Went Wrong &middot; Rosh Ingel</title>
         <ErrorPage
           code={500}
           title="Something Went Wrong"

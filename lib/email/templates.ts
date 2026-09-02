@@ -19,7 +19,7 @@ export const contactAutoreplyText = `ridwaanhall.com — Contact Form
 
 Hi {{ display_name }},
 
-Thank you for reaching out to Ridwan Halim.
+Thank you for reaching out to Rosh Ingel.
 Your message was received and will be reviewed shortly.
 
 YOUR MESSAGE
@@ -31,7 +31,7 @@ DETAILS
   Name    {{ name_display }}
   Email   {{ sender_email }}
 
-Ridwan typically responds within 1–3 business days.
+Rosh typically responds within 1–3 business days.
 For anything urgent, reply directly to this email.
 
 ════════════════════════════════════════════════════

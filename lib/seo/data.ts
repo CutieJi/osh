@@ -53,13 +53,13 @@ export function optimizeDescription(
 
 function baseSeo() {
   return {
-    twitter_site: "@ridwaanhall",
-    twitter_creator: "@ridwaanhall",
-    twitter_image_alt: "ridwaanhall.com - Ridwan Halim Portfolio",
+    twitter_site: "@roshingel",
+    twitter_creator: "@roshingel",
+    twitter_image_alt: "roshingel.netlify.app - Rosh Ingel Portfolio",
   };
 }
 
-function imageAlt(title: string, context = "ridwaanhall.com"): string {
+function imageAlt(title: string, context = "roshingel.netlify.app"): string {
   return title ? `${title} - ${context}` : `${context} - Portfolio and Blog`;
 }
 
