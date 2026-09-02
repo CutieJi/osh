@@ -1281,25 +1281,11 @@ export const profileForm: AdminFormModel = {
       parent: profileLink.profileId,
       scope: { column: profileLink.kind, value: "cv" },
       title: "CV",
-      help: "The three formats (/cv, /cv-latest, /cv-copy) redirect to these URLs.",
       itemLabel: "format",
       orderColumn: profileLink.position,
       fields: [
-        {
-          name: "platform",
-          column: profileLink.platform,
-          label: "Format",
-          kind: "select",
-          required: true,
-          choices: [
-            { value: "main", label: "PDF (/cv)" },
-            { value: "latest", label: "Word (/cv-latest)" },
-            { value: "copy", label: "Copy CV / Template (/cv-copy)" },
-            { value: "pdf", label: "PDF (alias)" },
-            { value: "word", label: "Word (alias)" },
-          ],
-        },
-        { name: "url", column: profileLink.url, label: "URL", kind: "url", required: true },
+        { name: "platform", column: profileLink.platform, label: "Label", kind: "text", required: true },
+        { name: "url", column: profileLink.url, label: "URL", kind: "text", required: true },
       ],
     },
     {

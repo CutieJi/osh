@@ -1,10 +1,7 @@
 import type { Route } from "next";
 import { redirect } from "next/navigation";
-import { asc, eq } from "drizzle-orm";
 
-import { cvUrls, getAboutData } from "@/lib/data/about";
-import { db } from "@/lib/db/client";
-import { profileLink } from "@/lib/db/app-schema";
+import { getAboutData } from "@/lib/data/about";
 
 /**
  * Redirect to one of the CV links stored on the profile.
@@ -18,27 +15,10 @@ import { profileLink } from "@/lib/db/app-schema";
  */
 export async function cvRedirect(key: "main" | "latest" | "copy"): Promise<never> {
   const about = await getAboutData();
-  let url = about?.cv?.[key];
-
-  if (!url) {
-    try {
-      const rows = await db
-        .select({ platform: profileLink.platform, url: profileLink.url })
-        .from(profileLink)
-        .where(eq(profileLink.kind, "cv"))
-        .orderBy(asc(profileLink.position));
-
-      const direct = cvUrls(rows);
-      url = direct[key];
-    } catch {
-      // Fall through to "/" fallback on db error
-    }
-  }
-
+  const url = about?.cv?.[key];
   // The destination is an absolute URL stored in the database (Google Drive,
   // typically), which `typedRoutes` cannot know about -- its `Route` type only
   // covers this app's own paths. The cast is the narrow escape hatch for that;
   // `redirect()` handles absolute URLs correctly at runtime.
   redirect((url || "/") as Route);
 }
-

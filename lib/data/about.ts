@@ -70,21 +70,6 @@ function urlsByPlatform(links: { platform: string; url: string }[]): Record<stri
   return Object.fromEntries(links.map((link) => [link.platform, link.url]));
 }
 
-/** Resolves CV URLs from `profile_link` rows, normalizing aliases like `pdf` or `word`. */
-export function cvUrls(links: { platform: string; url: string }[]): { main: string; latest: string; copy: string } {
-  const map: Record<string, string> = {};
-  for (const link of links) {
-    if (link.platform && link.url) {
-      map[link.platform.toLowerCase().trim()] = link.url;
-    }
-  }
-  return {
-    main: map.main ?? map.pdf ?? "",
-    latest: map.latest ?? map.word ?? map.doc ?? map.docx ?? "",
-    copy: map.copy ?? map.template ?? "",
-  };
-}
-
 /** Child rows grouped under their parent's key. */
 function groupBy<T>(rows: T[], key: (row: T) => string): Map<string, T[]> {
   const groups = new Map<string, T[]>();
@@ -221,7 +206,7 @@ export async function getAboutData(): Promise<AboutData | null> {
 
   const grouped = byKind(links);
   const social = urlsByPlatform(grouped.social ?? []);
-  const cv = cvUrls(grouped.cv ?? []);
+  const cv = urlsByPlatform(grouped.cv ?? []);
 
   return {
     name: p.name,
@@ -231,7 +216,7 @@ export async function getAboutData(): Promise<AboutData | null> {
     aka: p.aka,
     image_url: assetUrl(row.storageKey ? { storageKey: row.storageKey, source: row.source ?? "storage" } : null),
     personal_website: p.personalWebsite,
-    cv,
+    cv: { main: cv.main ?? "", latest: cv.latest ?? "", copy: cv.copy ?? "" },
     role: p.role,
     is_open_to_work: p.isOpenToWork,
     is_hiring: p.isHiring,
