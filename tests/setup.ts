@@ -24,6 +24,6 @@ process.env.STORAGE_POSTGRES_URL = "postgresql://unit:tests@127.0.0.1:1/none";
  * and in CI. `NEXT_PUBLIC_BASE_URL` feeds canonical URLs and the sitemap;
  * `SUPABASE_STORAGE_BUCKET` and `STORAGE_SUPABASE_URL` feed the media URLs.
  */
-process.env.NEXT_PUBLIC_BASE_URL = "https://roshingel.netlify.app";
+process.env.NEXT_PUBLIC_BASE_URL = "https://roshingel.vercel.app";
 process.env.STORAGE_SUPABASE_URL = "https://unit-tests.supabase.co";
 process.env.SUPABASE_STORAGE_BUCKET = "media";

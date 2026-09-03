@@ -44,7 +44,7 @@ export function mediaUrl(key: string | null | undefined): string {
  *   storage  an object in the Supabase bucket, uploaded through the admin.
  *   static   a file bundled under `public/` and served by the app. The 78 skill
  *            icons are these, and they used to be stored as absolute
- *            `https://roshingel.netlify.app/static/...` URLs -- which pointed
+ *            `https://roshingel.vercel.app/static/...` URLs -- which pointed
  *            development and the admin at the production site, and would have
  *            broken every one of them the moment the domain moved.
  *

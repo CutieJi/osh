@@ -389,7 +389,7 @@ CREATE TABLE "app"."skill" (
     "name" text NOT NULL,
     "description" text NOT NULL DEFAULT '',
     "category_id" uuid REFERENCES "app"."category"("id") ON DELETE SET NULL,
-    -- Was an absolute https://roshingel.netlify.app/static/svg/icon/*.svg on 78
+    -- Was an absolute https://roshingel.vercel.app/static/svg/icon/*.svg on 78
     -- rows, which pointed development and the admin at the production site and
     -- would have 404'd for every reader the moment the domain moved.
     "icon_id" uuid REFERENCES "app"."media_asset"("id") ON DELETE SET NULL,

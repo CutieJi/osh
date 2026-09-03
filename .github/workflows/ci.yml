@@ -72,7 +72,7 @@ jobs:
         env:
           STORAGE_POSTGRES_URL: ${{ secrets.STORAGE_POSTGRES_URL }}
           STORAGE_SUPABASE_URL: ${{ secrets.STORAGE_SUPABASE_URL }}
-          NEXT_PUBLIC_BASE_URL: https://roshingel.netlify.app
+          NEXT_PUBLIC_BASE_URL: https://roshingel.vercel.app
           # Auth.js refuses to build without one. It is never used: no session is
           # minted during a build, and the real secret lives in Vercel.
           AUTH_SECRET: build-only-not-a-real-secret

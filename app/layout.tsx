@@ -14,7 +14,7 @@ import { onest } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.netlify.app/"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.vercel.app/"),
   // Favicons are hand-placed under public/favicon/ rather than generated, so
   // they are declared here rather than discovered by file convention.
   icons: {

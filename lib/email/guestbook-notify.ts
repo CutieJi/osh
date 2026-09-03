@@ -49,7 +49,7 @@ function formatTimestamp(iso: string): string {
 }
 
 function guestbookUrl(): string {
-  const base = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.netlify.app").replace(/\/$/, "");
+  const base = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.vercel.app").replace(/\/$/, "");
   return `${base}/guestbook/`;
 }
 

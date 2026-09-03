@@ -36,7 +36,7 @@ const check = (name, pass, detail = "") => {
 /** A name and a message that would break a template that forgot to escape. */
 const HOSTILE_NAME = `Ada <script>alert(1)</script> & "Lovelace"`;
 const HOSTILE_MESSAGE = `line one\nline two & <b>bold</b>\n<img src=x onerror=alert(1)>`;
-const URL = "https://roshingel.netlify.app/guestbook/";
+const URL = "https://roshingel.vercel.app/guestbook/";
 
 const contact = { name: HOSTILE_NAME, senderEmail: "ada@example.com", message: HOSTILE_MESSAGE };
 const guestbook = { ...contact, timestamp: "August 21, 2026 at 18:09:00 WIB", guestbookUrl: URL };
@@ -179,10 +179,10 @@ const chrome = Object.values(rendered).map((b) => {
 });
 check("all five share one chrome", new Set(chrome).size === 1, `${new Set(chrome).size} variants`);
 for (const [name, body] of Object.entries(rendered)) {
-  check(`${name} has the brand header`, body.html.includes("roshingel.netlify.app</span>"));
+  check(`${name} has the brand header`, body.html.includes("roshingel.vercel.app</span>"));
   check(
     `${name} has the footer`,
-    body.html.includes('Sent by <a class="e-link" href="https://roshingel.netlify.app"'),
+    body.html.includes('Sent by <a class="e-link" href="https://roshingel.vercel.app"'),
   );
   check(`${name} has a preheader`, /max-height:0;max-width:0;opacity:0/.test(body.html));
 }

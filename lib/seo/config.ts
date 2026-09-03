@@ -6,12 +6,12 @@
  * a lag of weeks, not a refactor.
  */
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.netlify.app").replace(
+export const SITE_URL = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.vercel.app").replace(
   /\/+$/,
   "",
 );
 
-export const SITE_NAME = "roshingel.netlify.app";
+export const SITE_NAME = "roshingel.vercel.app";
 export const AUTHOR = "Rosh Ingel";
 
 export const DEFAULT_DESCRIPTION_LENGTH = 160;
@@ -26,7 +26,7 @@ export const DEFAULT_TWITTER_SITE = "@roshingel";
  * path here latent rather than visible -- it will not be noticed until the one
  * day it matters. The file is kept at the working path in public/static/img/.
  */
-export const DEFAULT_IMAGE = `${SITE_URL}/static/img/ridwaanhall.webp`;
+export const DEFAULT_IMAGE = `${SITE_URL}/static/img/cutieji_og.webp`;
 
 type ContentTypeConfig = {
   og_type: string;
@@ -51,7 +51,7 @@ export const CONTENT_TYPES = {
 
 export const COMMON_KEYWORDS = {
   personal: [
-    "Rosh Ingel", "roshingel", "roshingel.netlify.app", "cutieji",
+    "Rosh Ingel", "roshingel", "roshingel.vercel.app", "cutieji",
     "rosh ingel blog", "rosh ingel portfolio",
     "database engineer", "web developer", "full stack developer",
   ],

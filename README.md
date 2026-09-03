@@ -1,13 +1,13 @@
-# roshingel.netlify.app
+# roshingel.vercel.app
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white)](https://typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres-3FCF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com/)
 
-![roshingel.netlify.app](public/image.png)
+![roshingel.vercel.app](public/image.png)
 
-> **The developer portfolio and blog behind [roshingel.netlify.app](https://roshingel.netlify.app) by Rosh Ingel — database-backed content with an admin panel, live GitHub and WakaTime dashboards, an OAuth guestbook with threaded replies, and light and dark themes. Fork it and make it your own; see [Making It Your Own](#making-it-your-own) below.**
+> **The developer portfolio and blog behind [roshingel.vercel.app](https://roshingel.vercel.app) by Rosh Ingel — database-backed content with an admin panel, live GitHub and WakaTime dashboards, an OAuth guestbook with threaded replies, and light and dark themes. Fork it and make it your own; see [Making It Your Own](#making-it-your-own) below.**
 
 ## Key Features
 
@@ -33,7 +33,7 @@
 - **Email**: Resend
 - **APIs**: GitHub GraphQL, WakaTime
 - **Spam**: Cloudflare Turnstile
-- **Deployment**: Netlify / Vercel
+- **Deployment**: Vercel
 
 
 ## Project Structure
@@ -106,10 +106,10 @@ Two related front-end details:
 
 ## PageSpeed Insights
 
-Scores for the reference deployment at [roshingel.netlify.app](https://roshingel.netlify.app):
+Scores for the reference deployment at [roshingel.vercel.app](https://roshingel.vercel.app):
 
-[![Desktop: 99.5](https://img.shields.io/badge/Desktop-99.5-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-netlify-app/rstqtcxhc0?form_factor=desktop)
-[![Mobile: 99](https://img.shields.io/badge/Mobile-99-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-netlify-app/rstqtcxhc0?form_factor=mobile)
+[![Desktop: 99.5](https://img.shields.io/badge/Desktop-99.5-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-vercel-app/rstqtcxhc0?form_factor=desktop)
+[![Mobile: 99](https://img.shields.io/badge/Mobile-99-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-vercel-app/rstqtcxhc0?form_factor=mobile)
 
 | Platform | Performance | Accessibility | Best Practices | SEO | Average |
 |----------|-------------|---------------|----------------|-----|---------|
@@ -284,23 +284,15 @@ To adopt this codebase as your own portfolio:
 
 ## Deployment
 
-### Netlify (Current Setup)
-
-This repository includes a [`netlify.toml`](file:///c:/Users/Ningmei/Documents/GitHub/osh/netlify.toml) configured for building Next.js with Node 20:
-
-1. Connect your GitHub repository (`CutieJi/osh`) in the Netlify dashboard
-2. Set your environment variables in Site settings > Environment variables
-3. Deploy automatically on push to `main` (or run `netlify deploy --prod`)
-
 ### Vercel
 
-1. Import your repository [`CutieJi/osh`](https://github.com/CutieJi/osh) into Vercel
-2. Configure environment variables in the Vercel dashboard
-3. Set `NEXT_PUBLIC_BASE_URL` to your domain and register the OAuth redirect URIs (`/api/auth/callback/google` and `/api/auth/callback/github`)
+1. Fork this repository and import into Vercel
+2. Set environment variables (`NEXT_PUBLIC_BASE_URL`, `STORAGE_POSTGRES_URL`, `STORAGE_POSTGRES_URL_NON_POOLING`, `STORAGE_SUPABASE_URL`, `STORAGE_SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_STORAGE_BUCKET`, `AUTH_SECRET`, `AUTH_URL`, `AUTH_TRUST_HOST`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`, `RESEND_API_KEY`, `DEFAULT_FROM_EMAIL`, `CONTACT_EMAIL_RECIPIENT`, `GITHUB_ACCESS_TOKEN`, `WAKATIME_API_KEY`, `NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY`, `CF_TURNSTILE_SECRET_KEY`)
+3. Register OAuth redirect URIs (`/api/auth/callback/google` and `/api/auth/callback/github`)
 
 ## Contributing
 
-1. Fork the repository ([CutieJi/osh](https://github.com/CutieJi/osh))
+1. Fork this repository ([CutieJi/osh](https://github.com/CutieJi/osh))
 2. Create feature branch: `git checkout -b feature/name`
 3. Commit changes: `git commit -m 'Add feature'`
 4. Push branch: `git push origin feature/name`
@@ -314,4 +306,4 @@ Apache License 2.0 - See [LICENSE](LICENSE) for details.
 
 ---
 
-**[roshingel.netlify.app](https://roshingel.netlify.app)** — Rosh Ingel's personal developer portfolio and blog.
+**[roshingel.vercel.app](https://roshingel.vercel.app)** — Rosh Ingel's personal developer portfolio and blog.

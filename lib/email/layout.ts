@@ -191,7 +191,7 @@ function header(): string {
 <span style="color:${LIGHT.onAccent};font-size:13px;font-weight:700;font-family:${FONT};">R</span>
 </td>
 <td style="padding-left:11px;vertical-align:middle;">
-<span class="e-head" style="color:${LIGHT.heading};font-size:14px;font-weight:600;letter-spacing:-0.01em;font-family:${FONT};">roshingel.netlify.app</span>
+<span class="e-head" style="color:${LIGHT.heading};font-size:14px;font-weight:600;letter-spacing:-0.01em;font-family:${FONT};">roshingel.vercel.app</span>
 </td>
 </tr></table>
 </td></tr>`;
@@ -200,7 +200,7 @@ function header(): string {
 function footer(): string {
   return `<tr><td class="e-rule" style="border-top:1px solid ${LIGHT.borderSoft};padding:18px 26px;">
 <p class="e-muted" style="margin:0;font-size:12px;line-height:1.6;color:${LIGHT.muted};font-family:${FONT};">
-Sent by <a class="e-link" href="https://roshingel.netlify.app" style="color:${LIGHT.link};text-decoration:none;">roshingel.netlify.app</a>
+Sent by <a class="e-link" href="https://roshingel.vercel.app" style="color:${LIGHT.link};text-decoration:none;">roshingel.vercel.app</a>
 </p>
 </td></tr>`;
 }

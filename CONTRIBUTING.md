@@ -1,4 +1,4 @@
-# Contributing to roshingel.netlify.app
+# Contributing to roshingel.vercel.app
 
 Thank you for your interest in contributing to this portfolio project! This document provides guidelines and information for contributors to ensure a smooth and effective collaboration process.
 
@@ -465,6 +465,6 @@ By contributing to this project, you agree that your contributions will be licen
 
 ---
 
-Thank you for contributing to roshingel.netlify.app! Your efforts help make this project better for everyone. 🚀
+Thank you for contributing to roshingel.vercel.app! Your efforts help make this project better for everyone. 🚀
 
 **Questions?** Feel free to reach out via [email](mailto:roshjingel@gmail.com) or create an issue for clarification.

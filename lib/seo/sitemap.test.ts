@@ -4,7 +4,7 @@ import { describe, it } from "node:test";
 import { renderSitemap, type SitemapEntry } from "./sitemap";
 
 const entry = (over: Partial<SitemapEntry> = {}): SitemapEntry => ({
-  url: "https://roshingel.netlify.app/",
+  url: "https://roshingel.vercel.app/",
   lastModified: new Date("2026-01-23T18:45:12.000Z"),
   changeFrequency: "daily",
   priority: 1,
@@ -20,7 +20,7 @@ describe("renderSitemap", () => {
   });
 
   it("emits one <url> per entry", () => {
-    const xml = renderSitemap([entry(), entry({ url: "https://roshingel.netlify.app/about" })]);
+    const xml = renderSitemap([entry(), entry({ url: "https://roshingel.vercel.app/about" })]);
     assert.equal(xml.match(/<url>/g)?.length, 2);
   });
 
@@ -44,7 +44,7 @@ describe("renderSitemap", () => {
    * once.
    */
   it("escapes a URL that would otherwise break the document", () => {
-    const xml = renderSitemap([entry({ url: "https://roshingel.netlify.app/blog?a=1&b=2" })]);
+    const xml = renderSitemap([entry({ url: "https://roshingel.vercel.app/blog?a=1&b=2" })]);
     assert.ok(xml.includes("&amp;"), xml);
     assert.ok(!/[^&]&[^a-z#]/.test(xml), "a bare ampersand reached the document");
   });

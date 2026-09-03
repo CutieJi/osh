@@ -78,7 +78,7 @@ export default async function AdminIndexPage() {
       <div className="border-b border-zinc-800 pb-5">
         <h1 className="text-2xl font-medium text-zinc-100">Admin</h1>
         <p className="mt-1.5 max-w-2xl text-sm text-zinc-400">
-          Content for roshingel.netlify.app, read from and written to the live database.
+          Content for roshingel.vercel.app, read from and written to the live database.
         </p>
         <p className="mt-3 text-xs text-zinc-600">
           {screens} {screens === 1 ? "screen" : "screens"} across {groups.length}{" "}

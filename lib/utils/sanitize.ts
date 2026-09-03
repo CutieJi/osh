@@ -64,17 +64,17 @@ const OPTIONS: sanitizeHtml.IOptions = {
  * link on the site -- and this decides an attribute on stored content that a
  * visitor supplied. A constant is wrong in one obvious way or not at all.
  */
-const SITE_HOST = "roshingel.netlify.app";
+const SITE_HOST = "roshingel.vercel.app";
 
 /**
  * Is this link somebody else's?
  *
  * **Parsed, never searched.** This was
- * `href.includes("roshingel.netlify.app")`, which asks whether the site's name
+ * `href.includes("roshingel.vercel.app")`, which asks whether the site's name
  * appears anywhere in the string -- and it appears in
- * `https://roshingel.netlify.app.evil.test/` (a different registrable domain), in
- * `https://evil.test/?ref=roshingel.netlify.app` (a query parameter), and in
- * `https://notroshingel.netlify.app/` (a longer name). All three were treated as our
+ * `https://roshingel.vercel.app.evil.test/` (a different registrable domain), in
+ * `https://evil.test/?ref=roshingel.vercel.app` (a query parameter), and in
+ * `https://notroshingel.vercel.app/` (a longer name). All three were treated as our
  * own and lost their `target="_blank"` and the `rel` that goes with it.
  *
  * Anything that is not an absolute http(s) URL is ours: a relative href stays
@@ -90,7 +90,7 @@ function isExternal(href: string): boolean {
   if (url.protocol !== "http:" && url.protocol !== "https:") return false;
 
   const host = url.hostname.toLowerCase();
-  // The dot matters. Without it `notroshingel.netlify.app` ends with the site's name
+  // The dot matters. Without it `notroshingel.vercel.app` ends with the site's name
   // and this is the substring bug again, one level further in.
   return host !== SITE_HOST && !host.endsWith(`.${SITE_HOST}`);
 }

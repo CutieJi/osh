@@ -10,14 +10,14 @@ import {
 } from "./render";
 
 const contact = { name: "Dian", senderEmail: "dian@example.com", message: "Hello there" };
-const guestbook = { ...contact, timestamp: "2026-01-23 20:55", guestbookUrl: "https://roshingel.netlify.app/guestbook" };
+const guestbook = { ...contact, timestamp: "2026-01-23 20:55", guestbookUrl: "https://roshingel.vercel.app/guestbook" };
 const reply = {
   originalName: "Dian",
   replyName: "Rosh",
   replyMessage: "Thanks for writing",
   originalMessage: "Hello there",
   timestamp: "2026-01-23 20:55",
-  guestbookUrl: "https://roshingel.netlify.app/guestbook",
+  guestbookUrl: "https://roshingel.vercel.app/guestbook",
 };
 
 const all = () => [
