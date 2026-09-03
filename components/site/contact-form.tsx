@@ -120,7 +120,7 @@ export function ContactForm() {
           </svg>
           <div className="text-sm">
             <span className="font-medium">Typical response time:</span> 1&ndash;2 hours (Weekdays,
-            GMT+7). I reply with care.
+            GMT+8). I reply with care.
           </div>
         </div>
       </form>

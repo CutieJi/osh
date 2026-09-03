@@ -1,13 +1,13 @@
-# ridwaanhall.com
+# roshingel.netlify.app
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white)](https://typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres-3FCF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com/)
 
-![ridwaanhall.com](public/image.png)
+![roshingel.netlify.app](public/image.png)
 
-> **The portfolio behind [ridwaanhall.com](https://ridwaanhall.com) — database-backed content with its own admin, live GitHub and WakaTime dashboards, an OAuth guestbook with threaded replies, and light and dark themes. Fork it and make it your own; see [Making It Your Own](#making-it-your-own) below.**
+> **The developer portfolio and blog behind [roshingel.netlify.app](https://roshingel.netlify.app) by Rosh Ingel — database-backed content with an admin panel, live GitHub and WakaTime dashboards, an OAuth guestbook with threaded replies, and light and dark themes. Fork it and make it your own; see [Making It Your Own](#making-it-your-own) below.**
 
 ## Key Features
 
@@ -15,7 +15,7 @@
 - **Supabase-powered**: Postgres and Storage (blog and project images, logos, the profile photo) both on Supabase, reached through Drizzle ORM and a small storage client rather than an SDK
 - **Light and dark themes**: Dark by default, with a toggle in the sidebar and mobile navbar. Light mode is produced by remapping the Tailwind palette rather than by adding `dark:` variants, so both themes stay in sync automatically — see [Theming](#theming)
 - **Content caching**: Every read path is behind `use cache` with a tag per content area, so an edit invalidates only what it touched. Tag revalidation is cross-instance by construction, which matters on serverless where an edit handled by one instance must not leave the others stale
-- **Real-time dashboard**: Live GitHub contribution graph, WakaTime coding-activity stats, and a seven-day AI breakdown — tokens, estimated spend and cost by model — cut on Jakarta time and refreshed every 15 minutes
+- **Real-time dashboard**: Live GitHub contribution graph, WakaTime coding-activity stats, and a seven-day AI breakdown — tokens, estimated spend and cost by model — cut on Philippine time (PHT) and refreshed every 15 minutes
 - **Interactive guestbook**: Google/GitHub OAuth login, threaded replies, author/co-author roles, message pinning (up to 3 at a time), automatic link detection, email notifications — or disable it entirely with one env var
 - **Blog and projects**: Paginated, searchable listings with multi-image support, tags, categories, threaded comments, and a project lifecycle status system
 - **SEO built in**: Per-page meta tags, Open Graph, Twitter Cards, JSON-LD schema, and auto-generated sitemaps/robots.txt
@@ -33,7 +33,7 @@
 - **Email**: Resend
 - **APIs**: GitHub GraphQL, WakaTime
 - **Spam**: Cloudflare Turnstile
-- **Deployment**: Vercel
+- **Deployment**: Netlify / Vercel
 
 
 ## Project Structure
@@ -122,8 +122,8 @@ Scores for the reference deployment at [ridwaanhall.com](https://ridwaanhall.com
 **1. Get the code and its dependencies.**
 
 ```bash
-git clone https://github.com/ridwaanhall/ridwaanhall-com.git
-cd ridwaanhall-com
+git clone https://github.com/CutieJi/osh.git
+cd osh
 npm install
 ```
 
@@ -254,8 +254,7 @@ providers need `https://your-domain.com/api/auth/callback/google` and
 
 ## Making It Your Own
 
-This started as a personal site, but the architecture does not assume you are
-Ridwan Halim. To adopt it as your own portfolio:
+To adopt this codebase as your own portfolio:
 
 1. **Your database** — point `STORAGE_POSTGRES_URL` at your own Supabase project
    before anything else. There is no local database, so until you do, `/admin`
@@ -285,20 +284,23 @@ Ridwan Halim. To adopt it as your own portfolio:
 
 ## Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-description=Database-backed%20developer%20portfolio%20with%20its%20own%20admin%2C%20live%20dashboards%20and%20an%20OAuth%20guestbook.&demo-image=https%3A%2F%2Fridwaanhall.com%2Fstatic%2Fimg%2Fproject%2Fridwaanhall_com_2025070701.webp&demo-title=ridwaanhall.com&demo-url=https%3A%2F%2Fridwaanhall.com&from=templates&project-name=ridwaanhall-com&repository-name=ridwaanhall-com&repository-url=https%3A%2F%2Fgithub.com%2Fridwaanhall%2Fridwaanhall-com)
+### Netlify (Current Setup)
 
-### Manual Setup
+This repository includes a [`netlify.toml`](file:///c:/Users/Ningmei/Documents/GitHub/osh/netlify.toml) configured for building Next.js with Node 20:
 
-1. Fork this repository
-2. Install Vercel CLI: `npm i -g vercel`
-3. Deploy: `vercel --prod`
-4. Configure environment variables in the Vercel dashboard
-5. Set `NEXT_PUBLIC_BASE_URL` to your own domain, and register the OAuth
-   redirect URIs for it — see [Making It Your Own](#making-it-your-own)
+1. Connect your GitHub repository (`CutieJi/osh`) in the Netlify dashboard
+2. Set your environment variables in Site settings > Environment variables
+3. Deploy automatically on push to `main` (or run `netlify deploy --prod`)
+
+### Vercel
+
+1. Import your repository [`CutieJi/osh`](https://github.com/CutieJi/osh) into Vercel
+2. Configure environment variables in the Vercel dashboard
+3. Set `NEXT_PUBLIC_BASE_URL` to your domain and register the OAuth redirect URIs (`/api/auth/callback/google` and `/api/auth/callback/github`)
 
 ## Contributing
 
-1. Fork the repository
+1. Fork the repository ([CutieJi/osh](https://github.com/CutieJi/osh))
 2. Create feature branch: `git checkout -b feature/name`
 3. Commit changes: `git commit -m 'Add feature'`
 4. Push branch: `git push origin feature/name`
@@ -312,4 +314,4 @@ Apache License 2.0 - See [LICENSE](LICENSE) for details.
 
 ---
 
-**ridwaanhall.com** — a portfolio, built to be forked.
+**[roshingel.netlify.app](https://roshingel.netlify.app)** — Rosh Ingel's personal developer portfolio and blog.
