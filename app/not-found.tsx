@@ -10,7 +10,7 @@ import { ErrorPage } from "@/components/site/error-page";
  * pages that do exist.
  */
 export const metadata: Metadata = {
-  title: "Page Not Found - ridwaanhall.com",
+  title: "Page Not Found - roshingel.netlify.app",
   robots: { index: false, follow: false },
 };
 

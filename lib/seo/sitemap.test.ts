@@ -4,7 +4,7 @@ import { describe, it } from "node:test";
 import { renderSitemap, type SitemapEntry } from "./sitemap";
 
 const entry = (over: Partial<SitemapEntry> = {}): SitemapEntry => ({
-  url: "https://ridwaanhall.com/",
+  url: "https://roshingel.netlify.app/",
   lastModified: new Date("2026-01-23T18:45:12.000Z"),
   changeFrequency: "daily",
   priority: 1,
@@ -20,7 +20,7 @@ describe("renderSitemap", () => {
   });
 
   it("emits one <url> per entry", () => {
-    const xml = renderSitemap([entry(), entry({ url: "https://ridwaanhall.com/about" })]);
+    const xml = renderSitemap([entry(), entry({ url: "https://roshingel.netlify.app/about" })]);
     assert.equal(xml.match(/<url>/g)?.length, 2);
   });
 

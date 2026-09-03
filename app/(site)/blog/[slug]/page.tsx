@@ -94,7 +94,7 @@ export default async function BlogDetailPage({
                   )}
                   <div className="flex flex-col">
                     <a
-                      href="https://bio.ridwaanhall.com"
+                      href="https://roshingel.netlify.app"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center underline hover:text-zinc-200 hover:underline transition-colors duration-200 w-fit"

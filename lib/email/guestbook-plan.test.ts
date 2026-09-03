@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 
 import { planGuestbookEmails, type Dispatch, type DispatchKind } from "./guestbook-plan";
 
-const OWNERS = ["hi@ridwaanhall.com"];
+const OWNERS = ["roshjingel@gmail.com"];
 
 const visitor = { email: "ada@example.com", isSuperuser: false, isStaff: false };
 // Superuser implies staff -- the database refuses the other pair.

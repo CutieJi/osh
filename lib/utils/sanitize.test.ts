@@ -85,10 +85,10 @@ describe("sanitizeRichText", () => {
    */
   it("treats a host that merely contains the site's name as somebody else's", () => {
     for (const href of [
-      "https://ridwaanhall.com.evil.test/",
-      "https://evil.test/?ref=ridwaanhall.com",
-      "https://evil.test/ridwaanhall.com",
-      "https://notridwaanhall.com/",
+      "https://roshingel.netlify.app.evil.test/",
+      "https://evil.test/?ref=roshingel.netlify.app",
+      "https://evil.test/roshingel.netlify.app",
+      "https://notroshingel.netlify.app",
     ]) {
       const out = sanitizeRichText(`<a href="${href}">out</a>`);
       assert.ok(out.includes('target="_blank"'), `${href} should be external: ${out}`);
@@ -97,12 +97,12 @@ describe("sanitizeRichText", () => {
   });
 
   it("counts a subdomain of the site as the site", () => {
-    const out = sanitizeRichText('<a href="https://www.ridwaanhall.com/blog">in</a>');
+    const out = sanitizeRichText('<a href="https://www.roshingel.netlify.app/blog">in</a>');
     assert.ok(!out.includes("_blank"), out);
   });
 
   it("leaves an internal link in the same tab", () => {
-    const out = sanitizeRichText('<a href="https://ridwaanhall.com/blog">in</a>');
+    const out = sanitizeRichText('<a href="https://roshingel.netlify.app/blog">in</a>');
     assert.ok(!out.includes("_blank"), out);
   });
 

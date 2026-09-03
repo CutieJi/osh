@@ -1,4 +1,4 @@
-# Contributing to ridwaanhall.com
+# Contributing to roshingel.netlify.app
 
 Thank you for your interest in contributing to this portfolio project! This document provides guidelines and information for contributors to ensure a smooth and effective collaboration process.
 
@@ -426,7 +426,7 @@ costs more than a missing one.
 - **Use environment variables** for configuration
 - **Validate user input** properly
 - **Never trust the client.** A server action is a POST endpoint: it re-checks permission itself rather than assuming the page that rendered the form did
-- **Report security issues** privately to [hi@ridwaanhall.com](mailto:hi@ridwaanhall.com)
+- **Report security issues** privately to [roshjingel@gmail.com](mailto:hi@ridwaanhall.com)
 
 ### Security Checklist
 

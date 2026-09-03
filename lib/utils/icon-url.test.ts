@@ -11,14 +11,14 @@ describe("localIconUrl", () => {
    */
   it("serves a stored absolute icon from this origin", () => {
     assert.equal(
-      localIconUrl("https://ridwaanhall.com/static/svg/icon/python.svg"),
+      localIconUrl("https://roshingel.netlify.app/static/svg/icon/python.svg"),
       "/static/svg/icon/python.svg",
     );
   });
 
   it("rewrites the www and http forms too", () => {
-    assert.equal(localIconUrl("https://www.ridwaanhall.com/static/a.svg"), "/static/a.svg");
-    assert.equal(localIconUrl("http://ridwaanhall.com/static/a.svg"), "/static/a.svg");
+    assert.equal(localIconUrl("https://www.roshingel.netlify.app/static/a.svg"), "/static/a.svg");
+    assert.equal(localIconUrl("http://roshingel.netlify.app/static/a.svg"), "/static/a.svg");
   });
 
   it("leaves an icon that genuinely lives elsewhere alone", () => {
@@ -27,7 +27,7 @@ describe("localIconUrl", () => {
   });
 
   it("rewrites only the static prefix, not the whole domain", () => {
-    const other = "https://ridwaanhall.com/media/a.svg";
+    const other = "https://roshingel.netlify.app/media/a.svg";
     assert.equal(localIconUrl(other), other);
   });
 

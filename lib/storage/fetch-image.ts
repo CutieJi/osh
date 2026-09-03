@@ -172,7 +172,7 @@ export async function fetchLinkedImage(
           // few negotiate on Accept. Both are cheap to satisfy and awkward to
           // diagnose from a bare status code.
           Accept: "image/*,*/*;q=0.8",
-          "User-Agent": "ridwaanhall.com admin image fetch",
+          "User-Agent": "roshingel.netlify.app admin image fetch",
         },
         signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, remaining)),
       });
