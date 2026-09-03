@@ -23,8 +23,8 @@ export default async function HomePage() {
   if (!about) return null;
 
   // The third donate link is the sponsor URL, which is also what the search
-  // palette's "Support" entry points at.
-  const sponsorUrl = about.donate[2]?.url ?? "";
+  // palette's "Support" entry points at (falls back to first if only one is configured).
+  const sponsorUrl = about.donate[2]?.url ?? about.donate[0]?.url ?? "";
   const latest = blogs.slice(0, 5).map(toBlogSummary);
   const marqueeRows = MARQUEE_SEEDS.map((seed) => shuffle(skills, seed)) as [
     typeof skills,

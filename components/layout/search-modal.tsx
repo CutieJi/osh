@@ -152,8 +152,8 @@ function buildEntries(about: AboutData): SearchEntry[] {
     if (href) entries.push({ label, keywords, href, icon, section: "Socials", external: true });
   }
 
-  // The third donate link is the sponsor URL the homepage also reads.
-  const sponsor = about.donate[2]?.url;
+  // The third donate link is the sponsor URL the homepage also reads (falls back to first).
+  const sponsor = about.donate[2]?.url ?? about.donate[0]?.url;
   if (sponsor) {
     entries.push({
       label: "Support",

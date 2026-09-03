@@ -46,7 +46,7 @@ export default async function AboutPage() {
   ]);
   if (!about) return null;
 
-  const sponsorUrl = about.donate[2]?.url ?? "";
+  const sponsorUrl = about.donate[2]?.url ?? about.donate[0]?.url ?? "";
 
   const tabs = [
     {

@@ -19,7 +19,7 @@ import type { AboutData } from "@/lib/data/about";
  */
 export function SocialLinks({ about }: { about: AboutData }) {
   const { social_media: social } = about;
-  const sponsor = about.donate[2]?.url ?? "";
+  const sponsor = about.donate[2]?.url ?? about.donate[0]?.url ?? "";
 
   const links = [
     social.email && {
