@@ -14,7 +14,7 @@
  */
 
 /** `contact_autoreply.txt` */
-export const contactAutoreplyText = `ridwaanhall.com — Contact Form
+export const contactAutoreplyText = `roshingel.netlify.app — Contact Form
 ════════════════════════════════════════════════════
 
 Hi {{ display_name }},
@@ -35,11 +35,11 @@ Rosh typically responds within 1–3 business days.
 For anything urgent, reply directly to this email.
 
 ════════════════════════════════════════════════════
-ridwaanhall.com · Automated notice
+roshingel.netlify.app · Automated notice
 `;
 
 /** `contact_notification.txt` */
-export const contactNotificationText = `ridwaanhall.com — New Message
+export const contactNotificationText = `roshingel.netlify.app — New Message
 ════════════════════════════════════════════════════
 
 New contact form submission.
@@ -56,16 +56,16 @@ MESSAGE
 Reply to this email to respond directly to {{ sender_email }}.
 
 ════════════════════════════════════════════════════
-ridwaanhall.com · Automated notification
+roshingel.netlify.app · Automated notification
 `;
 
 /** `guestbook_autoreply.txt` */
-export const guestbookAutoreplyText = `ridwaanhall.com — Guestbook
+export const guestbookAutoreplyText = `roshingel.netlify.app — Guestbook
 ════════════════════════════════════════════════════
 
 Hi {{ display_name }},
 
-Your guestbook entry is now live at ridwaanhall.com.
+Your guestbook entry is now live at roshingel.netlify.app.
 It's visible to everyone who visits the guestbook.
 
 YOUR ENTRY
@@ -81,15 +81,15 @@ DETAILS
 VIEW GUESTBOOK
   {{ guestbook_url }}
 
-Replying to this email reaches Ridwan directly.
+Replying to this email reaches Rosh directly.
 If someone answers you on the guestbook, you will hear about it.
 
 ════════════════════════════════════════════════════
-ridwaanhall.com · Automated notice
+roshingel.netlify.app · Automated notice
 `;
 
 /** `guestbook_notification.txt` */
-export const guestbookNotificationText = `ridwaanhall.com — New Entry
+export const guestbookNotificationText = `roshingel.netlify.app — New Entry
 ════════════════════════════════════════════════════
 
 New guestbook entry.
@@ -110,16 +110,16 @@ OPEN GUESTBOOK
   {{ guestbook_url }}
 
 ════════════════════════════════════════════════════
-ridwaanhall.com · Automated notification
+roshingel.netlify.app · Automated notification
 `;
 
 /** `guestbook_reply_notification.txt` */
-export const guestbookReplyNotificationText = `ridwaanhall.com — Reply
+export const guestbookReplyNotificationText = `roshingel.netlify.app — Reply
 ════════════════════════════════════════════════════
 
 Hi {{ original_name }},
 
-{{ reply_name }} replied to your guestbook entry at ridwaanhall.com.
+{{ reply_name }} replied to your guestbook entry at roshingel.netlify.app.
 
 YOUR ORIGINAL ENTRY
 ──────────────────────────────────────────────────────
@@ -135,8 +135,8 @@ VIEW FULL CONVERSATION
   {{ guestbook_url }}
 
 To answer {{ reply_name }}, reply on the guestbook.
-Replying to this email reaches Ridwan instead.
+Replying to this email reaches Rosh instead.
 
 ════════════════════════════════════════════════════
-ridwaanhall.com · Reply notification
+roshingel.netlify.app · Reply notification
 `;

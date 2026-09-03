@@ -6,8 +6,8 @@
  * with a form would be the only friction in the flow. So one is derived, and
  * the derivation has to be stable enough that the result looks deliberate:
  *
- *   ridwan · hafidhah · laga · dian · ist · xeyla   <- Google
- *   ridwaanhall · Harindrawahyu                     <- GitHub
+ *   rosh · jiro · oah                               <- Google
+ *   CutieJi                                         <- GitHub
  *
  * A name-derived username is **slugified**, lowercase included, because a
  * display name is prose and a username is an identifier. A provider handle is

@@ -12,5 +12,5 @@
  * elsewhere keeps working.
  */
 export function localIconUrl(url: string): string {
-  return url.replace(/^https?:\/\/(www\.)?ridwaanhall\.com\/static\//, "/static/");
+  return url.replace(/^https?:\/\/(www\.)?roshingel\.netlify\.app\/static\//, "/static/");
 }

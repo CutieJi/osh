@@ -4,7 +4,7 @@
 
 Please do not open a public issue for a security problem.
 
-Send the details to [hi@ridwaanhall.com](mailto:hi@ridwaanhall.com) and include
+Send the details to [roshjingel@gmail.com](mailto:roshjingel@gmail.com) and include
 what you found, how to reproduce it, what an attacker could do with it, and any
 mitigation you would suggest.
 

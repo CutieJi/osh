@@ -10,14 +10,14 @@ import {
 } from "./render";
 
 const contact = { name: "Dian", senderEmail: "dian@example.com", message: "Hello there" };
-const guestbook = { ...contact, timestamp: "2026-01-23 20:55", guestbookUrl: "https://ridwaanhall.com/guestbook" };
+const guestbook = { ...contact, timestamp: "2026-01-23 20:55", guestbookUrl: "https://roshingel.netlify.app/guestbook" };
 const reply = {
   originalName: "Dian",
-  replyName: "Ridwan",
+  replyName: "Rosh",
   replyMessage: "Thanks for writing",
   originalMessage: "Hello there",
   timestamp: "2026-01-23 20:55",
-  guestbookUrl: "https://ridwaanhall.com/guestbook",
+  guestbookUrl: "https://roshingel.netlify.app/guestbook",
 };
 
 const all = () => [

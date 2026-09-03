@@ -12,8 +12,8 @@
 -- The pre-flight is one request. The previous build sets a `csrftoken` cookie
 -- and serves its stylesheets from `/static/css/`; this one does neither:
 --
---   curl -sS -D - -o /dev/null https://ridwaanhall.com/ | grep -i csrftoken
---   curl -sS https://ridwaanhall.com/ | grep -o '/static/css/'
+--   curl -sS -D - -o /dev/null https://roshingel.netlify.app/ | grep -i csrftoken
+--   curl -sS https://roshingel.netlify.app/ | grep -o '/static/css/'
 --
 -- Both must come back empty. If either matches, stop.
 --

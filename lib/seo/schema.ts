@@ -18,7 +18,7 @@ import { AUTHOR, SITE_NAME, SITE_URL } from "./config";
  *   display month/year.
  * - **`sameAs` holds absolute URLs only.** The email address was once in there
  *   as a bare string, which browsers resolve against the current page; Google
- *   recorded "https://ridwaanhall.com/about/hi@ridwaanhall.com" as a profile
+ *   recorded "https://roshingel.netlify.app/about/hi@roshingel.netlify.app" as a profile
  *   link. It is published through `email` instead.
  * - **No `SearchAction`.** Advertising one made Google crawl
  *   "/search?q={search_term_string}" literally and log a 404. The sidebar
@@ -457,9 +457,9 @@ export function privacyPolicySchema(about: AboutData, document?: LegalDocument |
   return {
     "@context": "https://schema.org",
     "@type": "PrivacyPolicy",
-    name: "Privacy Policy - ridwaanhall.com",
+    name: "Privacy Policy - roshingel.netlify.app",
     description:
-      "Comprehensive privacy policy outlining how we collect, use, and protect your personal information on ridwaanhall.com",
+      "Comprehensive privacy policy outlining how we collect, use, and protect your personal information on roshingel.netlify.app",
     url: `${SITE_URL}/privacy-policy`,
     dateCreated: SITE_CREATED_ISO,
     dateModified: document ? iso(document.last_updated) : BUILD_TIME_ISO,

@@ -44,7 +44,7 @@ describe("renderSitemap", () => {
    * once.
    */
   it("escapes a URL that would otherwise break the document", () => {
-    const xml = renderSitemap([entry({ url: "https://ridwaanhall.com/blog?a=1&b=2" })]);
+    const xml = renderSitemap([entry({ url: "https://roshingel.netlify.app/blog?a=1&b=2" })]);
     assert.ok(xml.includes("&amp;"), xml);
     assert.ok(!/[^&]&[^a-z#]/.test(xml), "a bare ampersand reached the document");
   });

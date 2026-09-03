@@ -106,10 +106,10 @@ Two related front-end details:
 
 ## PageSpeed Insights
 
-Scores for the reference deployment at [ridwaanhall.com](https://ridwaanhall.com):
+Scores for the reference deployment at [roshingel.netlify.app](https://roshingel.netlify.app):
 
-[![Desktop: 99.5](https://img.shields.io/badge/Desktop-99.5-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-ridwaanhall-com/rstqtcxhc0?form_factor=desktop)
-[![Mobile: 99](https://img.shields.io/badge/Mobile-99-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-ridwaanhall-com/rstqtcxhc0?form_factor=mobile)
+[![Desktop: 99.5](https://img.shields.io/badge/Desktop-99.5-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-netlify-app/rstqtcxhc0?form_factor=desktop)
+[![Mobile: 99](https://img.shields.io/badge/Mobile-99-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-netlify-app/rstqtcxhc0?form_factor=mobile)
 
 | Platform | Performance | Accessibility | Best Practices | SEO | Average |
 |----------|-------------|---------------|----------------|-----|---------|

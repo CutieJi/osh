@@ -39,14 +39,14 @@ Before you begin, ensure you have the following installed:
 2. **Clone your fork** locally:
 
    ```powershell
-   git clone https://github.com/ridwaanhall/ridwaanhall-com.git
-   cd ridwaanhall-com
+   git clone https://github.com/cutieji/osh.git
+   cd osh
    ```
 
 3. **Add upstream remote**:
 
    ```powershell
-   git remote add upstream https://github.com/ridwaanhall/ridwaanhall-com.git
+   git remote add upstream https://github.com/cutieji/osh.git
    ```
 
 ## Development Setup
@@ -93,7 +93,7 @@ Visit `http://localhost:3000`.
 ## Project Structure
 
 ```txt
-ridwaanhall-com/
+osh/
 ├── app/                    # Routes
 │   ├── (site)/             # The public pages
 │   ├── admin/              # The admin — two dynamic routes, 18 screens
@@ -426,7 +426,7 @@ costs more than a missing one.
 - **Use environment variables** for configuration
 - **Validate user input** properly
 - **Never trust the client.** A server action is a POST endpoint: it re-checks permission itself rather than assuming the page that rendered the form did
-- **Report security issues** privately to [roshjingel@gmail.com](mailto:hi@ridwaanhall.com)
+- **Report security issues** privately to [roshjingel@gmail.com](mailto:roshjingel@gmail.com)
 
 ### Security Checklist
 
@@ -441,8 +441,8 @@ costs more than a missing one.
 ### Communication Channels
 
 - **GitHub Issues**: For bugs and feature requests
-- **Email**: [hi@ridwaanhall.com](mailto:hi@ridwaanhall.com) for private communications
-- **LinkedIn**: [in/ridwaanhall](https://linkedin.com/in/ridwaanhall) for professional inquiries
+- **Email**: [roshjingel@gmail.com](mailto:roshjingel@gmail.com) for private communications
+- **LinkedIn**: [in/roshingel](https://linkedin.com/in/roshingel) for professional inquiries
 
 ### Resources
 
@@ -465,6 +465,6 @@ By contributing to this project, you agree that your contributions will be licen
 
 ---
 
-Thank you for contributing to ridwaanhall.com! Your efforts help make this project better for everyone. 🚀
+Thank you for contributing to roshingel.netlify.app! Your efforts help make this project better for everyone. 🚀
 
-**Questions?** Feel free to reach out via [email](mailto:hi@ridwaanhall.com) or create an issue for clarification.
+**Questions?** Feel free to reach out via [email](mailto:roshjingel@gmail.com) or create an issue for clarification.

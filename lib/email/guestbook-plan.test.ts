@@ -152,8 +152,8 @@ describe("planGuestbookEmails — missing addresses", () => {
   it("trims and de-duplicates the owner list", () => {
     const plan = planGuestbookEmails({
       sender: visitor,
-      owners: [" hi@ridwaanhall.com ", "hi@ridwaanhall.com", ""],
+      owners: [" roshingel@gmail.com ", "roshingel@gmail.com", ""],
     });
-    assert.deepEqual(of(plan, "owner")?.to, ["hi@ridwaanhall.com"]);
+    assert.deepEqual(of(plan, "owner")?.to, ["roshingel@gmail.com"]);
   });
 });
