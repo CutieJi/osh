@@ -64,16 +64,16 @@ describe("slugify", () => {
 
 describe("longDateTime", () => {
   /*
-   * Jakarta, not the viewer's zone, and the abbreviation is printed alongside
-   * so the reading is unambiguous. WIB is a fixed +07:00.
+   * Manila, not the viewer's zone, and the abbreviation is printed alongside
+   * so the reading is unambiguous. PHT is a fixed +08:00.
    */
-  it("renders in Jakarta time with the zone named", () => {
-    const out = longDateTime("2026-01-23T13:55:00Z"); // 20:55 WIB
-    assert.equal(out, "8:55 PM WIB, Fri January 23, 2026");
+  it("renders in Manila time with the zone named", () => {
+    const out = longDateTime("2026-01-23T12:55:00Z"); // 20:55 PHT
+    assert.equal(out, "8:55 PM PHT, Fri January 23, 2026");
   });
 
-  it("rolls the date over when Jakarta is already on the next day", () => {
-    const out = longDateTime("2026-01-23T17:30:00Z"); // 00:30 WIB on the 24th
+  it("rolls the date over when Manila is already on the next day", () => {
+    const out = longDateTime("2026-01-23T16:30:00Z"); // 00:30 PHT on the 24th
     assert.ok(out.includes("January 24, 2026"), out);
     assert.ok(out.startsWith("12:30 AM"), out);
   });

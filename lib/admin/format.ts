@@ -8,18 +8,18 @@
  * is unambiguous, aligns in a column, and reads in the same order as the sort
  * it usually sits under.
  *
- * Jakarta, not UTC: the admin has one audience, in one timezone, and a row
- * created at 06:30 WIB should not show yesterday's date to them. The public
+ * Manila, not UTC: the admin has one audience, in one timezone, and a row
+ * created at 06:30 PHT should not show yesterday's date to them. The public
  * site formats in UTC instead, because that has to render identically on a
  * server and in an arbitrary reader's browser.
  */
-const JAKARTA = "Asia/Jakarta";
+const MANILA = "Asia/Manila";
 
 export function adminDate(value: Date | string | null): string {
   if (!value) return "";
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) return "";
-  return new Intl.DateTimeFormat("en-CA", { timeZone: JAKARTA }).format(date);
+  return new Intl.DateTimeFormat("en-CA", { timeZone: MANILA }).format(date);
 }
 
 export function adminDateTime(value: Date | string | null): string {
@@ -27,7 +27,7 @@ export function adminDateTime(value: Date | string | null): string {
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) return "";
   const time = new Intl.DateTimeFormat("en-GB", {
-    timeZone: JAKARTA,
+    timeZone: MANILA,
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,

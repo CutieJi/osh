@@ -48,9 +48,9 @@ export function slugify(value: string): string {
 }
 
 /**
- * "8:55 PM WIB, Fri January 23, 2026".
+ * "8:55 PM PHT, Fri January 23, 2026".
  *
- * Rendered in Asia/Jakarta rather than the viewer's timezone. The site has one
+ * Rendered in Asia/Manila rather than the viewer's timezone. The site has one
  * author in one place, the abbreviation is printed alongside, and a
  * viewer-local rendering would differ between server and client and be reported
  * as a hydration mismatch.
@@ -58,7 +58,7 @@ export function slugify(value: string): string {
 export function longDateTime(value: Date | string): string {
   const date = value instanceof Date ? value : new Date(value);
   const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Jakarta",
+    timeZone: "Asia/Manila",
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
@@ -71,5 +71,5 @@ export function longDateTime(value: Date | string): string {
   const get = (type: Intl.DateTimeFormatPartTypes) =>
     parts.find((part) => part.type === type)?.value ?? "";
 
-  return `${get("hour")}:${get("minute")} ${get("dayPeriod")} WIB, ${get("weekday")} ${get("month")} ${get("day")}, ${get("year")}`;
+  return `${get("hour")}:${get("minute")} ${get("dayPeriod")} PHT, ${get("weekday")} ${get("month")} ${get("day")}, ${get("year")}`;
 }

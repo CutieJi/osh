@@ -232,10 +232,10 @@ export function readListParams<Row>(
 /**
  * Four windows, beside "any date".
  *
- * Boundaries are calendar days in Asia/Jakarta: "today" has to mean the site
- * owner's today, not UTC's, or the filter goes wrong for seven hours out of
- * every twenty-four. WIB is a fixed +07:00 -- Indonesia has had no daylight
- * saving since 1964 -- so the offset is written literally rather than looked up
+ * Boundaries are calendar days in Asia/Manila: "today" has to mean the site
+ * owner's today, not UTC's, or the filter goes wrong for eight hours out of
+ * every twenty-four. PHT is a fixed +08:00 -- the Philippines has no daylight
+ * saving -- so the offset is written literally rather than looked up
  * per date.
  */
 export const DATE_FILTER_CHOICES: FilterChoice[] = [
@@ -245,20 +245,20 @@ export const DATE_FILTER_CHOICES: FilterChoice[] = [
   { value: "year", label: "This year" },
 ];
 
-const JAKARTA_OFFSET = "+07:00";
+const MANILA_OFFSET = "+08:00";
 
-/** `YYYY-MM-DD` for the current Jakarta day. */
-function jakartaToday(): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(new Date());
+/** `YYYY-MM-DD` for the current Manila day. */
+function manilaToday(): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Manila" }).format(new Date());
 }
 
-/** The instant a Jakarta calendar day begins, as a string Postgres reads. */
-function jakartaStart(date: string): string {
-  return `${date}T00:00:00${JAKARTA_OFFSET}`;
+/** The instant a Manila calendar day begins, as a string Postgres reads. */
+function manilaStart(date: string): string {
+  return `${date}T00:00:00${MANILA_OFFSET}`;
 }
 
 function dateFloor(value: string): string | null {
-  const today = jakartaToday();
+  const today = manilaToday();
   const [year, month] = today.split("-");
 
   switch (value) {

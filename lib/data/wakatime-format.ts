@@ -14,12 +14,14 @@
  */
 
 export const BASE = "https://wakatime.com/api/v1";
-export const TIMEZONE = "Asia/Jakarta";
+export const TIMEZONE = "Asia/Manila";
 
-/** Today in Asia/Jakarta as `YYYY-MM-DD`, which is what the API's range expects. */
-export function jakartaToday(): string {
+/** Today in Asia/Manila as `YYYY-MM-DD`, which is what the API's range expects. */
+export function manilaToday(): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: TIMEZONE }).format(new Date());
 }
+
+export const jakartaToday = manilaToday;
 
 export function daysAgo(isoDate: string, days: number): string {
   const date = new Date(`${isoDate}T00:00:00Z`);
@@ -92,8 +94,8 @@ export const usd = (value: number, decimals: number) =>
     maximumFractionDigits: decimals,
   }).format(value);
 
-/** "August 20, 2026", in Jakarta time -- the clock the coding hours were kept on. */
-export function longDateJakarta(iso: string | undefined | null): string {
+/** "August 20, 2026", in Philippine time -- the clock the coding hours were kept on. */
+export function longDateManila(iso: string | undefined | null): string {
   if (!iso) return "N/A";
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return "N/A";
@@ -104,6 +106,8 @@ export function longDateJakarta(iso: string | undefined | null): string {
     year: "numeric",
   }).format(date);
 }
+
+export const longDateJakarta = longDateManila;
 
 /**
  * A share of a whole, to two decimals, safe at a zero total.

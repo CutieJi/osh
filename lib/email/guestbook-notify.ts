@@ -29,11 +29,11 @@ import type { BadgeTone } from "@/lib/email/layout";
  * committed, and every send already swallows its own errors.
  */
 
-/** `'%B %d, %Y at %H:%M:%S'` plus the zone abbreviation, in Asia/Jakarta. */
+/** `'%B %d, %Y at %H:%M:%S'` plus the zone abbreviation, in Asia/Manila. */
 function formatTimestamp(iso: string): string {
   const date = new Date(iso);
   const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Jakarta",
+    timeZone: "Asia/Manila",
     month: "long",
     day: "2-digit",
     year: "numeric",

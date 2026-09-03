@@ -113,12 +113,12 @@ describe("longDateJakarta", () => {
   });
 
   /*
-   * The reason the zone matters: 17:30Z is already the next day in Jakarta, and
+   * The reason the zone matters: 16:30Z is already the next day in Manila, and
    * these are the boundaries WakaTime itself cuts its days on.
    */
-  it("rolls to the next day past 17:00 UTC, as Jakarta does", () => {
-    assert.equal(longDateJakarta("2026-08-20T16:59:59Z"), "August 20, 2026");
-    assert.equal(longDateJakarta("2026-08-20T17:00:00Z"), "August 21, 2026");
+  it("rolls to the next day past 16:00 UTC, as Manila does", () => {
+    assert.equal(longDateJakarta("2026-08-20T15:59:59Z"), "August 20, 2026");
+    assert.equal(longDateJakarta("2026-08-20T16:00:00Z"), "August 21, 2026");
   });
 
   it("says N/A rather than 'Invalid Date' when the API omits one", () => {

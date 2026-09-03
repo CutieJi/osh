@@ -47,7 +47,7 @@ function dateParts(value: string | Date | null | undefined): { year: number; mon
 }
 
 /**
- * Is the site owner within working hours? Weekdays 15:00–19:59, Asia/Jakarta.
+ * Is the site owner within working hours? Weekdays 15:00–19:59, Asia/Manila.
  *
  * This is the one value that must never be cached -- it is derived from the
  * current clock, so a cached copy would freeze the availability indicator.
@@ -55,7 +55,7 @@ function dateParts(value: string | Date | null | undefined): { year: number; mon
  */
 export function isWorkingHours(now: Date = new Date()): boolean {
   const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Jakarta",
+    timeZone: "Asia/Manila",
     weekday: "short",
     hour: "numeric",
     // hourCycle rather than hour12:false -- the latter renders midnight as

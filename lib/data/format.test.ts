@@ -52,21 +52,21 @@ describe("isoMonth", () => {
 });
 
 describe("isWorkingHours", () => {
-  // 15:00–19:59 Asia/Jakarta (+07:00), Monday to Friday.
+  // 15:00–19:59 Asia/Manila (+08:00), Monday to Friday.
   // 2026-01-23 is a Friday; 2026-01-24 a Saturday.
   it("is true inside the window on a weekday", () => {
-    assert.equal(isWorkingHours(new Date("2026-01-23T08:00:00Z")), true); // 15:00 WIB
-    assert.equal(isWorkingHours(new Date("2026-01-23T12:59:00Z")), true); // 19:59 WIB
+    assert.equal(isWorkingHours(new Date("2026-01-23T07:00:00Z")), true); // 15:00 PHT
+    assert.equal(isWorkingHours(new Date("2026-01-23T11:59:00Z")), true); // 19:59 PHT
   });
 
   it("is false either side of the window", () => {
-    assert.equal(isWorkingHours(new Date("2026-01-23T07:59:00Z")), false); // 14:59 WIB
-    assert.equal(isWorkingHours(new Date("2026-01-23T13:00:00Z")), false); // 20:00 WIB
+    assert.equal(isWorkingHours(new Date("2026-01-23T06:59:00Z")), false); // 14:59 PHT
+    assert.equal(isWorkingHours(new Date("2026-01-23T12:00:00Z")), false); // 20:00 PHT
   });
 
   it("is false at the weekend, even inside the hours", () => {
-    assert.equal(isWorkingHours(new Date("2026-01-24T08:00:00Z")), false); // Sat 15:00 WIB
-    assert.equal(isWorkingHours(new Date("2026-01-25T09:00:00Z")), false); // Sun 16:00 WIB
+    assert.equal(isWorkingHours(new Date("2026-01-24T07:00:00Z")), false); // Sat 15:00 PHT
+    assert.equal(isWorkingHours(new Date("2026-01-25T08:00:00Z")), false); // Sun 16:00 PHT
   });
 
   /*
@@ -75,14 +75,14 @@ describe("isWorkingHours", () => {
    * would read as hour 24 and fall outside every comparison silently.
    */
   it("reads midnight as hour zero, not twenty-four", () => {
-    assert.equal(isWorkingHours(new Date("2026-01-22T17:00:00Z")), false); // Fri 00:00 WIB
+    assert.equal(isWorkingHours(new Date("2026-01-22T16:00:00Z")), false); // Fri 00:00 PHT
   });
 
-  it("crosses the date line correctly, since the day is Jakarta's", () => {
-    // Sunday 23:00 UTC is already Monday 06:00 in Jakarta -- a weekday, but
+  it("crosses the date line correctly, since the day is Manila's", () => {
+    // Sunday 23:00 UTC is already Monday 07:00 in Manila -- a weekday, but
     // outside the hours.
     assert.equal(isWorkingHours(new Date("2026-01-25T23:00:00Z")), false);
-    // Friday 13:00 UTC is Friday 20:00 WIB: a weekday, one minute past the end.
-    assert.equal(isWorkingHours(new Date("2026-01-23T12:00:00Z")), true); // 19:00 WIB
+    // Friday 11:00 UTC is Friday 19:00 PHT: a weekday, one hour before the end.
+    assert.equal(isWorkingHours(new Date("2026-01-23T11:00:00Z")), true); // 19:00 PHT
   });
 });
