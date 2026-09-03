@@ -257,22 +257,24 @@ function manilaStart(date: string): string {
   return `${date}T00:00:00${MANILA_OFFSET}`;
 }
 
+const jakartaStart = manilaStart;
+
 function dateFloor(value: string): string | null {
   const today = manilaToday();
   const [year, month] = today.split("-");
 
   switch (value) {
     case "today":
-      return jakartaStart(today);
+      return manilaStart(today);
     case "week": {
       const back = new Date(`${today}T00:00:00Z`);
       back.setUTCDate(back.getUTCDate() - 7);
-      return jakartaStart(back.toISOString().slice(0, 10));
+      return manilaStart(back.toISOString().slice(0, 10));
     }
     case "month":
-      return jakartaStart(`${year}-${month}-01`);
+      return manilaStart(`${year}-${month}-01`);
     case "year":
-      return jakartaStart(`${year}-01-01`);
+      return manilaStart(`${year}-01-01`);
     default:
       return null;
   }
