@@ -209,7 +209,7 @@ export async function togglePin(messageId: string): Promise<ActionResult> {
    */
   const result = await db.transaction(async (tx) => {
     await tx.execute(
-      sql`select id from guestbook_chatmessage order by id limit 1 for update`,
+      sql`select id from ${guestMessage} order by id limit 1 for update`,
     );
 
     // Excluding this message means a concurrent request that already pinned it
