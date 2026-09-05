@@ -426,7 +426,7 @@ costs more than a missing one.
 - **Use environment variables** for configuration
 - **Validate user input** properly
 - **Never trust the client.** A server action is a POST endpoint: it re-checks permission itself rather than assuming the page that rendered the form did
-- **Report security issues** privately to [roshjingel@gmail.com](mailto:roshjingel@gmail.com)
+- **Report security issues** privately to [roshingel.dev@gmail.com](mailto:roshingel.dev@gmail.com)
 
 ### Security Checklist
 
@@ -441,7 +441,7 @@ costs more than a missing one.
 ### Communication Channels
 
 - **GitHub Issues**: For bugs and feature requests
-- **Email**: [roshjingel@gmail.com](mailto:roshjingel@gmail.com) for private communications
+- **Email**: [roshingel.dev@gmail.com](mailto:roshingel.dev@gmail.com) for private communications
 - **LinkedIn**: [in/roshingel](https://linkedin.com/in/roshingel) for professional inquiries
 
 ### Resources
@@ -467,4 +467,4 @@ By contributing to this project, you agree that your contributions will be licen
 
 Thank you for contributing to roshingel.vercel.app! Your efforts help make this project better for everyone. 🚀
 
-**Questions?** Feel free to reach out via [email](mailto:roshjingel@gmail.com) or create an issue for clarification.
+**Questions?** Feel free to reach out via [email](mailto:roshingel.dev@gmail.com) or create an issue for clarification.

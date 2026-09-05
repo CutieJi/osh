@@ -5,10 +5,10 @@ import { planGuestbookEmails, type Dispatch, type DispatchKind } from "./guestbo
 
 const OWNERS = ["roshjingel@gmail.com"];
 
-const visitor = { email: "ada@example.com", isSuperuser: false, isStaff: false };
+const visitor = { email: "rosh@example.com", isSuperuser: false, isStaff: false };
 // Superuser implies staff -- the database refuses the other pair.
-const owner = { email: "ridwan@example.com", isSuperuser: true, isStaff: true };
-const helper = { email: "grace@example.com", isSuperuser: false, isStaff: true };
+const owner = { email: "roshingel@example.com", isSuperuser: true, isStaff: true };
+const helper = { email: "osh@example.com", isSuperuser: false, isStaff: true };
 
 const kinds = (plan: Dispatch[]): DispatchKind[] => plan.map((d) => d.kind);
 const of = (plan: Dispatch[], kind: DispatchKind) => plan.find((d) => d.kind === kind);
@@ -27,11 +27,11 @@ describe("planGuestbookEmails — an ordinary visitor", () => {
    */
   it("points the owner's reply at the poster", () => {
     assert.deepEqual(of(plan, "owner")?.to, OWNERS);
-    assert.deepEqual(of(plan, "owner")?.replyTo, ["ada@example.com"]);
+    assert.deepEqual(of(plan, "owner")?.replyTo, ["rosh@example.com"]);
   });
 
   it("points the poster's reply at the owner", () => {
-    assert.deepEqual(of(plan, "confirm")?.to, ["ada@example.com"]);
+    assert.deepEqual(of(plan, "confirm")?.to, ["rosh@example.com"]);
     assert.deepEqual(of(plan, "confirm")?.replyTo, OWNERS);
   });
 });
@@ -54,7 +54,7 @@ describe("planGuestbookEmails — roles", () => {
   it("notifies the owner about a staff post, but sends them no receipt", () => {
     const plan = planGuestbookEmails({ sender: helper, owners: OWNERS });
     assert.deepEqual(kinds(plan), ["owner"]);
-    assert.deepEqual(of(plan, "owner")?.replyTo, ["grace@example.com"]);
+    assert.deepEqual(of(plan, "owner")?.replyTo, ["roshingel@example.com"]);
   });
 });
 
@@ -62,11 +62,11 @@ describe("planGuestbookEmails — replies", () => {
   it("tells the person who was answered", () => {
     const plan = planGuestbookEmails({
       sender: visitor,
-      parentAuthor: { email: "grace@example.com" },
+      parentAuthor: { email: "roshingel@example.com" },
       owners: OWNERS,
     });
     assert.deepEqual(kinds(plan), ["owner", "confirm", "reply"]);
-    assert.deepEqual(of(plan, "reply")?.to, ["grace@example.com"]);
+    assert.deepEqual(of(plan, "reply")?.to, ["roshingel@example.com"]);
   });
 
   /*
@@ -77,17 +77,17 @@ describe("planGuestbookEmails — replies", () => {
   it("routes that reply back to the owner, never to the replier", () => {
     const plan = planGuestbookEmails({
       sender: visitor,
-      parentAuthor: { email: "grace@example.com" },
+      parentAuthor: { email: "roshingel@example.com" },
       owners: OWNERS,
     });
     assert.deepEqual(of(plan, "reply")?.replyTo, OWNERS);
-    assert.ok(!JSON.stringify(of(plan, "reply")).includes("ada@example.com"));
+    assert.ok(!JSON.stringify(of(plan, "reply")).includes("rosh@example.com"));
   });
 
   it("says nothing when somebody replies to themselves", () => {
     const plan = planGuestbookEmails({
       sender: visitor,
-      parentAuthor: { email: "ada@example.com" },
+      parentAuthor: { email: "rosh@example.com" },
       owners: OWNERS,
     });
     assert.deepEqual(kinds(plan), ["owner", "confirm"]);
@@ -100,21 +100,21 @@ describe("planGuestbookEmails — replies", () => {
   it("still tells the owner that somebody answered them", () => {
     const plan = planGuestbookEmails({
       sender: visitor,
-      parentAuthor: { email: "ridwan@example.com" },
+      parentAuthor: { email: "roshingel@example.com" },
       owners: OWNERS,
     });
-    assert.deepEqual(of(plan, "reply")?.to, ["ridwan@example.com"]);
+    assert.deepEqual(of(plan, "reply")?.to, ["roshingel@example.com"]);
   });
 
   /* And the owner replying to a visitor is news to that visitor. */
   it("tells a visitor when the owner answers them, sending the owner nothing", () => {
     const plan = planGuestbookEmails({
       sender: owner,
-      parentAuthor: { email: "ada@example.com" },
+      parentAuthor: { email: "rosh@example.com" },
       owners: OWNERS,
     });
     assert.deepEqual(kinds(plan), ["reply"]);
-    assert.deepEqual(of(plan, "reply")?.to, ["ada@example.com"]);
+    assert.deepEqual(of(plan, "reply")?.to, ["rosh@example.com"]);
   });
 
   it("skips the reply when the parent's account carries no address", () => {
@@ -152,8 +152,8 @@ describe("planGuestbookEmails — missing addresses", () => {
   it("trims and de-duplicates the owner list", () => {
     const plan = planGuestbookEmails({
       sender: visitor,
-      owners: [" roshingel@gmail.com ", "roshingel@gmail.com", ""],
+      owners: [" roshingel.dev@gmail.com ", "roshingel.dev@gmail.com", ""],
     });
-    assert.deepEqual(of(plan, "owner")?.to, ["roshingel@gmail.com"]);
+    assert.deepEqual(of(plan, "owner")?.to, ["roshingel.dev@gmail.com"]);
   });
 });
