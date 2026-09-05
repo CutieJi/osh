@@ -8,7 +8,7 @@ url.searchParams.delete("sslmode");
 const pool = new pg.Pool({ connectionString: url.toString(), max: 2, ssl: { rejectUnauthorized: false } });
 
 try {
-  const email = "roshjingel@gmail.com";
+  const email = "roshingel.dev@gmail.com";
   console.log(`Promoting user ${email}...`);
   await pool.query(
     "UPDATE app.account SET is_staff = true, is_superuser = true WHERE email = $1",

@@ -101,7 +101,7 @@ if (PRESET_KEY && !PRESET) {
  * A variable would be a way for the same script to promote a different account
  * on a different day, which is not a flexibility this wants.
  */
-const FIRST_SUPERUSER = "roshjingel@gmail.com";
+const FIRST_SUPERUSER = "roshingel.dev@gmail.com";
 
 /**
  * The screens a grant may name.
