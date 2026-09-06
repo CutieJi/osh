@@ -11,8 +11,10 @@ config({ path: ".env", quiet: true });
 const { db, pool } = await import("../lib/db/client.ts");
 const { account, staffNotification } = await import("../lib/db/app-schema.ts");
 const {
+  clearAllStaffNotifications,
   createStaffNotifications,
   createUserNotification,
+  deleteStaffNotification,
   getStaffNotificationSummary,
   getUnnoticedStaffNotifications,
   markAllStaffNotificationsRead,
@@ -151,6 +153,16 @@ try {
     await markAllStaffNotificationsRead(superuser.id, tx);
     const summaryAfterAll = await getStaffNotificationSummary(superuser.id, 20, tx);
     check("all notifications marked as read", summaryAfterAll.unreadCount === 0);
+
+    // 5. Delete single notification and clear all
+    const second = summaryAfterAll.notifications[0];
+    await deleteStaffNotification(superuser.id, second.id, tx);
+    const summaryAfterDeleteOne = await getStaffNotificationSummary(superuser.id, 20, tx);
+    check("single notification deleted", !summaryAfterDeleteOne.notifications.some((n) => n.id === second.id));
+
+    await clearAllStaffNotifications(superuser.id, tx);
+    const summaryAfterClearAll = await getStaffNotificationSummary(superuser.id, 20, tx);
+    check("all notifications cleared", summaryAfterClearAll.notifications.length === 0 && summaryAfterClearAll.unreadCount === 0);
 
     // Rollback so no test data remains
     throw ROLLBACK;

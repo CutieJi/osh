@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
+  clearAllNotificationsAction,
+  clearNotificationAction,
   fetchStaffNotifications,
   markAllReadAction,
   markReadAction,
@@ -84,6 +86,26 @@ function GuestbookIcon({ className }: { className?: string }) {
   );
 }
 
+function CloseIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      stroke="currentColor"
+      fill="none"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      height={12}
+      width={12}
+      className={className}
+      aria-hidden="true"
+    >
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
+
 export function StaffNotificationBell({
   align = "right",
   direction = "down",
@@ -113,11 +135,19 @@ export function StaffNotificationBell({
         setIsLoggedIn(true);
         setUnreadCount(res.data.unreadCount);
         setItems(res.data.notifications);
+      } else if (typeof window !== "undefined" && (window as any).__MOCK_NOTIFICATIONS) {
+        setIsLoggedIn(true);
+        setUnreadCount((window as any).__MOCK_NOTIFICATIONS.filter((n: any) => !n.isRead).length);
+        setItems((window as any).__MOCK_NOTIFICATIONS);
       } else if (isInitial && (typeof window === "undefined" || !(window as any).__FORCE_BELL)) {
         setIsLoggedIn(false);
       }
     } catch {
-      if (isInitial && (typeof window === "undefined" || !(window as any).__FORCE_BELL)) {
+      if (typeof window !== "undefined" && (window as any).__MOCK_NOTIFICATIONS) {
+        setIsLoggedIn(true);
+        setUnreadCount((window as any).__MOCK_NOTIFICATIONS.filter((n: any) => !n.isRead).length);
+        setItems((window as any).__MOCK_NOTIFICATIONS);
+      } else if (isInitial && (typeof window === "undefined" || !(window as any).__FORCE_BELL)) {
         setIsLoggedIn(false);
       }
     }
@@ -214,6 +244,29 @@ export function StaffNotificationBell({
     await markAllReadAction();
   };
 
+  const handleClearNotification = async (id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const target = items.find((item) => item.id === id);
+    setItems((prev) => prev.filter((item) => item.id !== id));
+    if (target && !target.isRead) {
+      setUnreadCount((prev) => Math.max(0, prev - 1));
+    }
+    await clearNotificationAction(id);
+  };
+
+  const handleClearAll = async (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setItems([]);
+    setUnreadCount(0);
+    await clearAllNotificationsAction();
+  };
+
   return (
     <div ref={wrapperRef} className="relative inline-flex items-center">
       <button
@@ -270,15 +323,27 @@ export function StaffNotificationBell({
               )}
             </div>
 
-            {unreadCount > 0 && (
-              <button
-                type="button"
-                onClick={handleMarkAllRead}
-                className="text-xs text-indigo-400 transition-colors hover:text-indigo-300 hover:underline cursor-pointer"
-              >
-                Mark all read
-              </button>
-            )}
+            <div className="flex items-center gap-2.5">
+              {unreadCount > 0 && (
+                <button
+                  type="button"
+                  onClick={handleMarkAllRead}
+                  className="text-xs text-indigo-400 transition-colors hover:text-indigo-300 hover:underline cursor-pointer"
+                >
+                  Mark all read
+                </button>
+              )}
+              {items.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClearAll}
+                  className="text-xs text-zinc-500 transition-colors hover:text-red-400 hover:underline cursor-pointer"
+                  title="Clear all notifications"
+                >
+                  Clear all
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="max-h-80 overflow-y-auto divide-y divide-zinc-900 py-1">
@@ -292,56 +357,67 @@ export function StaffNotificationBell({
               </div>
             ) : (
               items.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.url as any}
-                  onClick={() => {
-                    if (!item.isRead) void handleMarkRead(item.id);
-                    setOpen(false);
-                  }}
-                  className={cn(
-                    "flex items-start gap-3 p-2.5 rounded-lg transition-colors hover:bg-zinc-900 group cursor-pointer",
-                    !item.isRead && "bg-zinc-900/40",
-                  )}
-                >
-                  <div
+                <div key={item.id} className="group/item relative">
+                  <Link
+                    href={item.url as any}
+                    onClick={() => {
+                      if (!item.isRead) void handleMarkRead(item.id);
+                      setOpen(false);
+                    }}
                     className={cn(
-                      "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border",
-                      item.kind === "comment"
-                        ? "border-cyan-800/50 bg-cyan-950/40 text-cyan-400"
-                        : "border-indigo-800/50 bg-indigo-950/40 text-indigo-400",
+                      "flex items-start gap-3 p-2.5 pr-8 rounded-lg transition-colors hover:bg-zinc-900 group cursor-pointer",
+                      !item.isRead && "bg-zinc-900/40",
                     )}
                   >
-                    {item.kind === "comment" ? <CommentIcon /> : <GuestbookIcon />}
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-1">
-                      <p
-                        className={cn(
-                          "text-xs line-clamp-1 font-medium",
-                          item.isRead ? "text-zinc-300" : "text-zinc-100 font-semibold",
-                        )}
-                      >
-                        {item.title}
-                      </p>
-                      <span className="text-[10px] text-zinc-500 shrink-0">
-                        {formatRelativeTime(item.createdAt)}
-                      </span>
+                    <div
+                      className={cn(
+                        "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border",
+                        item.kind === "comment"
+                          ? "border-cyan-800/50 bg-cyan-950/40 text-cyan-400"
+                          : "border-indigo-800/50 bg-indigo-950/40 text-indigo-400",
+                      )}
+                    >
+                      {item.kind === "comment" ? <CommentIcon /> : <GuestbookIcon />}
                     </div>
 
-                    <p className="mt-0.5 line-clamp-2 text-xs text-zinc-400">
-                      {item.body}
-                    </p>
-                  </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-1 pr-1">
+                        <p
+                          className={cn(
+                            "text-xs line-clamp-1 font-medium",
+                            item.isRead ? "text-zinc-300" : "text-zinc-100 font-semibold",
+                          )}
+                        >
+                          {item.title}
+                        </p>
+                        <span className="text-[10px] text-zinc-500 shrink-0">
+                          {formatRelativeTime(item.createdAt)}
+                        </span>
+                      </div>
 
-                  {!item.isRead && (
-                    <span
-                      className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-indigo-500"
-                      title="Unread"
-                    />
-                  )}
-                </Link>
+                      <p className="mt-0.5 line-clamp-2 text-xs text-zinc-400">
+                        {item.body}
+                      </p>
+                    </div>
+
+                    {!item.isRead && (
+                      <span
+                        className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-indigo-500"
+                        title="Unread"
+                      />
+                    )}
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={(e) => handleClearNotification(item.id, e)}
+                    className="absolute right-1.5 top-2.5 p-1 text-zinc-500 opacity-60 transition-all hover:bg-zinc-800 hover:text-red-400 rounded sm:opacity-0 sm:group-hover/item:opacity-100 focus:opacity-100 cursor-pointer"
+                    title="Clear notification"
+                    aria-label="Clear notification"
+                  >
+                    <CloseIcon className="h-3 w-3" />
+                  </button>
+                </div>
               ))
             )}
           </div>

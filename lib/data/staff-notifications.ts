@@ -243,3 +243,34 @@ export async function markAllStaffNotificationsRead(
       ),
     );
 }
+
+/**
+ * Deletes a single notification belonging to an account.
+ */
+export async function deleteStaffNotification(
+  accountId: string,
+  id: string,
+  database: DbHandle = db,
+): Promise<void> {
+  await database
+    .delete(staffNotification)
+    .where(
+      and(
+        eq(staffNotification.accountId, accountId),
+        eq(staffNotification.id, id),
+      ),
+    );
+}
+
+/**
+ * Clears/deletes all notifications for an account.
+ */
+export async function clearAllStaffNotifications(
+  accountId: string,
+  database: DbHandle = db,
+): Promise<void> {
+  await database
+    .delete(staffNotification)
+    .where(eq(staffNotification.accountId, accountId));
+}
+

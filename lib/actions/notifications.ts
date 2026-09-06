@@ -2,6 +2,8 @@
 
 import { auth } from "@/auth";
 import {
+  clearAllStaffNotifications,
+  deleteStaffNotification,
   getStaffNotificationSummary,
   getUnnoticedStaffNotifications,
   markAllStaffNotificationsRead,
@@ -84,3 +86,30 @@ export async function markAllReadAction(): Promise<NotificationResult<void>> {
   await markAllStaffNotificationsRead(accountId);
   return { ok: true, data: undefined };
 }
+
+/**
+ * Clears/deletes a single notification for the current user.
+ */
+export async function clearNotificationAction(
+  id: string,
+): Promise<NotificationResult<void>> {
+  const accountId = await currentAccountId();
+  if (!accountId) return { ok: false, error: "Not signed in" };
+
+  await deleteStaffNotification(accountId, id);
+  return { ok: true, data: undefined };
+}
+
+/**
+ * Clears/deletes all notifications for the current user.
+ */
+export async function clearAllNotificationsAction(): Promise<
+  NotificationResult<void>
+> {
+  const accountId = await currentAccountId();
+  if (!accountId) return { ok: false, error: "Not signed in" };
+
+  await clearAllStaffNotifications(accountId);
+  return { ok: true, data: undefined };
+}
+
