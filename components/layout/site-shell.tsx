@@ -9,6 +9,7 @@ import { ProfileAvatar } from "@/components/layout/profile-avatar";
 import { SearchModalProvider } from "@/components/layout/search-modal";
 import { SidebarRail } from "@/components/layout/sidebar-rail";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { StaffNotificationBell } from "@/components/notifications/staff-notification-bell";
 import type { AboutData } from "@/lib/data/about";
 
 /**
@@ -52,9 +53,14 @@ export function SiteShell({
             <div className="text-lg font-medium text-zinc-200">{about.name}</div>
             <VerifiedIcon className="text-blue-400 w-5 h-5" />
           </div>
-          {/* Toggle and hamburger are a matched pair -- same padding, radius and
-              hover treatment, so they read as one control group. */}
-          <div className="ml-auto flex items-center gap-0.5">
+          {/* Notification bell on left side of dark/light theme switch and hamburger menu */}
+          <div className="ml-auto flex items-center gap-1">
+            <StaffNotificationBell
+              align="right"
+              direction="down"
+              iconSize="h-6 w-6"
+              className="p-1.5"
+            />
             <ThemeToggle iconSize="h-6 w-6" />
             <button
               type="button"

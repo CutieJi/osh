@@ -85,10 +85,17 @@ function GuestbookIcon({ className }: { className?: string }) {
 
 export function StaffNotificationBell({
   align = "right",
+  direction = "down",
+  iconSize = "h-4 w-4",
+  className,
 }: {
   align?: "left" | "right";
+  direction?: "up" | "down";
+  iconSize?: string;
+  className?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [unreadCount, setUnreadCount] = useState(0);
   const [items, setItems] = useState<StaffNotificationItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -98,11 +105,14 @@ export function StaffNotificationBell({
     try {
       const res = await fetchStaffNotifications();
       if (res.ok && res.data) {
+        setIsLoggedIn(true);
         setUnreadCount(res.data.unreadCount);
         setItems(res.data.notifications);
+      } else {
+        setIsLoggedIn(false);
       }
-    } catch (err) {
-      console.error("Failed to load notifications:", err);
+    } catch {
+      setIsLoggedIn(false);
     }
   }, []);
 
@@ -135,6 +145,8 @@ export function StaffNotificationBell({
     };
   }, [open]);
 
+  if (!isLoggedIn) return null;
+
   const handleToggle = () => {
     if (!open) {
       setLoading(true);
@@ -166,14 +178,15 @@ export function StaffNotificationBell({
         type="button"
         onClick={handleToggle}
         className={cn(
-          "relative inline-flex h-8 w-8 items-center justify-center rounded-md text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400",
+          "relative inline-flex items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400",
+          className ? className : "h-8 w-8 text-zinc-400 hover:text-zinc-200",
           open && "bg-zinc-800 text-zinc-200",
         )}
         title={unreadCount > 0 ? `${unreadCount} unread notification(s)` : "Notifications"}
-        aria-label="Staff Notifications"
+        aria-label="Notifications"
         aria-expanded={open}
       >
-        <BellIcon className="h-4 w-4" />
+        <BellIcon className={iconSize} />
         {unreadCount > 0 && (
           <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-indigo-600 px-1 text-[10px] font-bold text-white shadow-sm ring-2 ring-black">
             {unreadCount > 9 ? "9+" : unreadCount}
@@ -184,8 +197,10 @@ export function StaffNotificationBell({
       {open && (
         <div
           className={cn(
-            "absolute top-full mt-2 w-80 sm:w-96 rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl backdrop-blur-xl z-50",
-            align === "right" ? "right-0" : "left-0",
+            "fixed inset-x-3 top-[4.25rem] z-50 rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl backdrop-blur-xl",
+            "sm:absolute sm:inset-auto sm:w-88 sm:max-w-sm",
+            direction === "up" ? "sm:bottom-full sm:mb-2 sm:top-auto" : "sm:top-full sm:mt-2 sm:bottom-auto",
+            align === "right" ? "sm:right-0 sm:left-auto" : "sm:left-0 sm:right-auto",
           )}
         >
           <div className="flex items-center justify-between border-b border-zinc-800/80 px-3 py-2">
@@ -280,3 +295,5 @@ export function StaffNotificationBell({
     </div>
   );
 }
+
+export const NotificationBell = StaffNotificationBell;

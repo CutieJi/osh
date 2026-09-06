@@ -12,7 +12,10 @@ import {
   MAX_COMMENT_LENGTH,
 } from "@/lib/data/comment-shapes";
 import { commentIdsOnTarget, getComment } from "@/lib/data/comments";
-import { createStaffNotifications } from "@/lib/data/staff-notifications";
+import {
+  createStaffNotifications,
+  createUserNotification,
+} from "@/lib/data/staff-notifications";
 import { db } from "@/lib/db/client";
 import { blogPost, comment as commentTable, project } from "@/lib/db/app-schema";
 
@@ -98,11 +101,13 @@ export async function postComment(formData: FormData): Promise<CommentResult> {
    *   not appear.
    */
   let replyToId: string | null = null;
+  let parentAuthorId: string | null = null;
   const requested = String(formData.get("reply_to") ?? "");
   if (requested) {
     const [parent] = await commentIdsOnTarget(label, targetId, [requested]);
     if (!parent) return { ok: false, error: "That comment is no longer available." };
     replyToId = parent.replyToId ?? parent.id;
+    parentAuthorId = parent.accountId;
   }
 
   await db.insert(commentTable).values({
@@ -136,16 +141,29 @@ export async function postComment(formData: FormData): Promise<CommentResult> {
 
       const author = await getUserProfile(who.userId);
       const authorName = author?.fullName || author?.username || "Someone";
+      const preview = body.length > 120 ? `${body.slice(0, 117)}...` : body;
+
+      // If this is a reply to another user's comment, notify that user directly
+      if (replyToId && parentAuthorId && parentAuthorId !== who.userId) {
+        await createUserNotification({
+          accountId: parentAuthorId,
+          kind: "comment",
+          title: `${authorName} replied to your comment on ${targetTitle}`,
+          body: preview,
+          url: `${pathFor(label, slug)}#comments`,
+        });
+      }
 
       await createStaffNotifications({
         kind: "comment",
         title: `${authorName} ${replyToId ? "replied to a comment" : "commented"} on ${targetTitle}`,
-        body: body.length > 120 ? `${body.slice(0, 117)}...` : body,
+        body: preview,
         url: `${pathFor(label, slug)}#comments`,
         actorAccountId: who.userId,
+        excludeAccountIds: parentAuthorId ? [parentAuthorId] : undefined,
       });
     } catch (err) {
-      console.error("Failed to notify staff of new comment:", err);
+      console.error("Failed to notify of new comment:", err);
     }
   });
 

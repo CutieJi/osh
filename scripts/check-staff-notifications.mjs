@@ -12,6 +12,7 @@ const { db, pool } = await import("../lib/db/client.ts");
 const { account, staffNotification } = await import("../lib/db/app-schema.ts");
 const {
   createStaffNotifications,
+  createUserNotification,
   getStaffNotificationSummary,
   getUnnoticedStaffNotifications,
   markAllStaffNotificationsRead,
@@ -103,6 +104,24 @@ try {
     check(
       "superuser receives notification about staff comment",
       superuserNotifsAfter.some((item) => item.title === "Staff commented on a post"),
+    );
+
+    // 2b. User reply notification: when someone replies to reader's guestbook message
+    await createUserNotification(
+      {
+        accountId: reader.id,
+        kind: "guestbook",
+        title: "Alice replied to your guestbook message",
+        body: "Thanks for reading!",
+        url: "/guestbook",
+      },
+      tx,
+    );
+
+    const readerReplyNotifs = await getUnnoticedStaffNotifications(reader.id, tx);
+    check(
+      "user receives reply notification when someone replies via guestbook",
+      readerReplyNotifs.some((item) => item.title === "Alice replied to your guestbook message"),
     );
 
     // 3. Mark noticed -> no longer in unnoticed list, but still unread in summary

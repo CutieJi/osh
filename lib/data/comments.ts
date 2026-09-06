@@ -150,7 +150,7 @@ export async function commentIdsOnTarget(
 ) {
   if (ids.length === 0) return [];
   return database
-    .select({ id: comment.id, replyToId: comment.replyToId })
+    .select({ id: comment.id, replyToId: comment.replyToId, accountId: comment.accountId })
     .from(comment)
     .where(
       and(

@@ -23,9 +23,46 @@ export type CreateStaffNotificationsInput = {
   url: string;
   /** If provided, this account will not be notified of their own post. */
   actorAccountId?: string;
+  /** Additional accounts to exclude (e.g. if they already received a direct reply notification). */
+  excludeAccountIds?: string[];
+};
+
+export type CreateUserNotificationInput = {
+  accountId: string;
+  kind: StaffNotificationKind;
+  title: string;
+  body: string;
+  url: string;
 };
 
 type DbHandle = any;
+
+/**
+ * Creates a notification for a specific user account (e.g. when someone replied to them).
+ */
+export async function createUserNotification(
+  input: CreateUserNotificationInput,
+  database: DbHandle = db,
+): Promise<string | null> {
+  try {
+    const [inserted] = await database
+      .insert(staffNotification)
+      .values({
+        accountId: input.accountId,
+        kind: input.kind,
+        title: input.title,
+        body: input.body,
+        url: input.url,
+        isRead: false,
+        isNoticed: false,
+      })
+      .returning({ id: staffNotification.id });
+    return inserted?.id ?? null;
+  } catch (error) {
+    console.error("Failed to create user notification:", error);
+    return null;
+  }
+}
 
 /**
  * Creates notifications for all active accounts holding the staff or superuser role.
@@ -46,9 +83,14 @@ export async function createStaffNotifications(
         ),
       );
 
+    const excludeSet = new Set<string>([
+      ...(input.actorAccountId ? [input.actorAccountId] : []),
+      ...(input.excludeAccountIds ?? []),
+    ]);
+
     const recipientIds: string[] = staffAccounts
       .map((row: { id: string }) => row.id)
-      .filter((id: string) => id !== input.actorAccountId);
+      .filter((id: string) => !excludeSet.has(id));
 
     if (recipientIds.length === 0) return [];
 

@@ -96,39 +96,36 @@ export async function AccountPanel() {
   const role = viewer.role;
 
   return (
-    <div className="flex w-full items-center gap-1.5">
-      {staff && <StaffNotificationListener />}
-      <div className="min-w-0 flex-1">
-        <AccountMenu
-          name={viewer.fullName}
-          username={viewer.username}
-          imageUrl={viewer.profileImage}
-          role={role}
-        >
-          {/* Admin above, and the act that costs something last. */}
-          {staff && (
-            <Link href="/admin" className={`${MENU_ROW} ${HOVER_ADMIN}`}>
-              Admin
-            </Link>
-          )}
+    <>
+      <StaffNotificationListener />
+      <AccountMenu
+        name={viewer.fullName}
+        username={viewer.username}
+        imageUrl={viewer.profileImage}
+        role={role}
+      >
+        {/* Admin above, and the act that costs something last. */}
+        {staff && (
+          <Link href="/admin" className={`${MENU_ROW} ${HOVER_ADMIN}`}>
+            Admin
+          </Link>
+        )}
 
-          {/* A form posting a server action, not a link: signing out is a state
-              change, and a `GET` that ends a session is reachable by a prefetch. */}
-          <form
-            action={async () => {
-              "use server";
-              await signOutHere("/");
-            }}
-          >
-            <SignOutButton
-              message="You'll be signed out on this device and returned to the home page."
-              className={`${MENU_ROW} ${HOVER_LEAVE}`}
-            />
-          </form>
-        </AccountMenu>
-      </div>
-      {staff && <StaffNotificationBell align="left" />}
-    </div>
+        {/* A form posting a server action, not a link: signing out is a state
+            change, and a `GET` that ends a session is reachable by a prefetch. */}
+        <form
+          action={async () => {
+            "use server";
+            await signOutHere("/");
+          }}
+        >
+          <SignOutButton
+            message="You'll be signed out on this device and returned to the home page."
+            className={`${MENU_ROW} ${HOVER_LEAVE}`}
+          />
+        </form>
+      </AccountMenu>
+    </>
   );
 }
 

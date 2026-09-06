@@ -5,6 +5,7 @@ import { SearchTrigger } from "@/components/layout/search-trigger";
 import { SIDEBAR_BASE, SidebarFooter } from "@/components/layout/sidebar-footer";
 import { StatusBadges } from "@/components/layout/status-badges";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { StaffNotificationBell } from "@/components/notifications/staff-notification-bell";
 import type { AboutData } from "@/lib/data/about";
 
 /**
@@ -66,13 +67,15 @@ export function SidebarRail({
               <VerifiedIcon className="text-blue-400" height={18} width={18} />
             </div>
 
-            {/* The rail's single theme toggle lives here. `bare` because a hover
-                chip beside text would read as a second control. */}
+            {/* The rail's single theme toggle and notification bell live here. */}
             <div className="flex items-center justify-between w-full gap-2">
               <div className="text-[15px] text-zinc-400 hover:text-zinc-300 transition-all duration-300">
                 @{about.username}
               </div>
-              <ThemeToggle bare />
+              <div className="flex items-center gap-1">
+                <StaffNotificationBell align="left" direction="down" />
+                <ThemeToggle bare />
+              </div>
             </div>
 
             <StatusBadges about={about} variant="rail" />

@@ -7,7 +7,10 @@ import { after } from "next/server";
 import { auth } from "@/auth";
 import { getUserProfile } from "@/lib/auth/profile";
 import { db } from "@/lib/db/client";
-import { createStaffNotifications } from "@/lib/data/staff-notifications";
+import {
+  createStaffNotifications,
+  createUserNotification,
+} from "@/lib/data/staff-notifications";
 import { notifyNewGuestbookMessage } from "@/lib/email/guestbook-notify";
 import { guestMessage } from "@/lib/db/app-schema";
 import { MAX_MESSAGE_LENGTH, MAX_PINNED, MIN_MESSAGE_LENGTH } from "@/lib/data/guestbook-tree";
@@ -87,13 +90,15 @@ export async function sendMessage(formData: FormData): Promise<ActionResult> {
    */
   const replyToId = String(formData.get("reply_to") ?? "");
   let replyTo: string | null = null;
+  let parentAccountId: string | null = null;
   if (replyToId) {
     const [parent] = await db
-      .select({ id: guestMessage.id })
+      .select({ id: guestMessage.id, accountId: guestMessage.accountId })
       .from(guestMessage)
       .where(eq(guestMessage.id, replyToId))
       .limit(1);
     replyTo = parent?.id ?? null;
+    parentAccountId = parent?.accountId ?? null;
   }
 
   const [created] = await db
@@ -123,15 +128,29 @@ export async function sendMessage(formData: FormData): Promise<ActionResult> {
     after(async () => {
       try {
         const authorName = profile.fullName || profile.username || "Someone";
+        const preview = text.length > 120 ? `${text.slice(0, 117)}...` : text;
+
+        // If this is a reply to another user's message, notify that user directly
+        if (replyTo && parentAccountId && parentAccountId !== profile.id) {
+          await createUserNotification({
+            accountId: parentAccountId,
+            kind: "guestbook",
+            title: `${authorName} replied to your guestbook message`,
+            body: preview,
+            url: GUESTBOOK_PATH,
+          });
+        }
+
         await createStaffNotifications({
           kind: "guestbook",
           title: `${authorName} ${replyTo ? "replied to a guestbook message" : "signed the guestbook"}`,
-          body: text.length > 120 ? `${text.slice(0, 117)}...` : text,
+          body: preview,
           url: GUESTBOOK_PATH,
           actorAccountId: profile.id,
+          excludeAccountIds: parentAccountId ? [parentAccountId] : undefined,
         });
       } catch (err) {
-        console.error("Failed to notify staff of guestbook message:", err);
+        console.error("Failed to notify of guestbook message:", err);
       }
     });
   }
