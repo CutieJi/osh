@@ -21,10 +21,10 @@ export const account = app.table("account", {
   firstName: text("first_name").notNull().default(''),
   lastName: text("last_name").notNull().default(''),
   isStaff: boolean("is_staff").notNull().default(false),
+  isSuperuser: boolean("is_superuser").notNull().default(false),
   isActive: boolean("is_active").notNull().default(true),
   joinedAt: timestamp("joined_at", { withTimezone: true, mode: "string" }).notNull().defaultNow(),
   lastSeenAt: timestamp("last_seen_at", { withTimezone: true, mode: "string" }),
-  isSuperuser: boolean("is_superuser").notNull().default(false),
 });
 
 export const accountIdentity = app.table("account_identity", {
@@ -278,11 +278,11 @@ export const legalDocument = app.table("legal_document", {
   id: uuid().primaryKey().defaultRandom(),
   slug: text().notNull(),
   title: text().notNull(),
+  typeId: uuid("type_id").references((): AnyPgColumn => legalDocumentType.id).notNull(),
   summary: text().notNull().default(''),
   isPublished: boolean("is_published").notNull().default(true),
   lastUpdated: timestamp("last_updated", { withTimezone: true, mode: "string" }).notNull().defaultNow(),
   position: integer().notNull().default(0),
-  typeId: uuid("type_id").references((): AnyPgColumn => legalDocumentType.id).notNull(),
 });
 
 export const legalDocumentType = app.table("legal_document_type", {
@@ -338,18 +338,18 @@ export const openToWorkListItem = app.table("open_to_work_list_item", {
 
 export const openToWorkProfile = app.table("open_to_work_profile", {
   id: uuid().primaryKey().defaultRandom(),
-  remote: boolean().notNull().default(false),
-  relocation: boolean().notNull().default(false),
-  showAllToolsSkills: boolean("show_all_tools_skills").notNull().default(false),
-  salaryExpectation: text("salary_expectation").notNull().default(''),
-  interviewAvailability: text("interview_availability").notNull().default(''),
-  additionalNotes: text("additional_notes").notNull().default(''),
   statusId: uuid("status_id").references((): AnyPgColumn => openToWorkStatus.id),
   availabilityId: uuid("availability_id").references((): AnyPgColumn => availability.id),
   experienceLevelId: uuid("experience_level_id").references((): AnyPgColumn => experienceLevel.id),
   noticePeriodId: uuid("notice_period_id").references((): AnyPgColumn => noticePeriod.id),
   workAuthorizationId: uuid("work_authorization_id").references((): AnyPgColumn => workAuthorization.id),
   contactPreferenceId: uuid("contact_preference_id").references((): AnyPgColumn => contactPreference.id),
+  remote: boolean().notNull().default(false),
+  relocation: boolean().notNull().default(false),
+  showAllToolsSkills: boolean("show_all_tools_skills").notNull().default(false),
+  salaryExpectation: text("salary_expectation").notNull().default(''),
+  interviewAvailability: text("interview_availability").notNull().default(''),
+  additionalNotes: text("additional_notes").notNull().default(''),
 });
 
 export const openToWorkStatus = app.table("open_to_work_status", {
@@ -467,9 +467,9 @@ export const projectTag = app.table("project_tag", {
 export const publicAccess = app.table("public_access", {
   id: uuid().primaryKey().defaultRandom(),
   accountId: uuid("account_id").references((): AnyPgColumn => account.id).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }).notNull().defaultNow(),
   canComment: boolean("can_comment").notNull().default(true),
   canGuestbook: boolean("can_guestbook").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }).notNull().defaultNow(),
 });
 
 export const skill = app.table("skill", {
@@ -480,6 +480,18 @@ export const skill = app.table("skill", {
   categoryId: uuid("category_id").references((): AnyPgColumn => category.id),
   iconId: uuid("icon_id").references((): AnyPgColumn => mediaAsset.id),
   position: integer().notNull().default(0),
+});
+
+export const staffNotification = app.table("staff_notification", {
+  id: uuid().primaryKey().defaultRandom(),
+  accountId: uuid("account_id").references((): AnyPgColumn => account.id).notNull(),
+  kind: text().notNull(),
+  title: text().notNull(),
+  body: text().notNull(),
+  url: text().notNull(),
+  isRead: boolean("is_read").notNull().default(false),
+  isNoticed: boolean("is_noticed").notNull().default(false),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }).notNull().defaultNow(),
 });
 
 export const tag = app.table("tag", {

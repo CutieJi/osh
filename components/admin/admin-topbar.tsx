@@ -4,6 +4,8 @@ import { AdminBreadcrumb } from "@/components/admin/admin-breadcrumb";
 import { ForwardIcon } from "@/components/admin/admin-icons";
 import { RolePill } from "@/components/admin/role-pill";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { StaffNotificationBell } from "@/components/notifications/staff-notification-bell";
+import { StaffNotificationListener } from "@/components/notifications/staff-notification-listener";
 import { SignOutButton } from "@/components/sign-out-button";
 import { signOutHere } from "@/lib/actions/auth";
 import { adminRole } from "@/lib/auth/roles";
@@ -54,6 +56,9 @@ export function AdminTopbar({ user }: { user: StaffUser }) {
           <span className="hidden sm:inline">View site</span>
           <ForwardIcon aria-hidden="true" height={14} width={14} />
         </Link>
+
+        <StaffNotificationListener />
+        <StaffNotificationBell />
 
         <ThemeToggle iconSize="h-4 w-4" />
 

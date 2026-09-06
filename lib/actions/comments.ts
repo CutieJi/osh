@@ -2,6 +2,7 @@
 
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 
 import { auth } from "@/auth";
 import { getUserProfile } from "@/lib/auth/profile";
@@ -11,8 +12,9 @@ import {
   MAX_COMMENT_LENGTH,
 } from "@/lib/data/comment-shapes";
 import { commentIdsOnTarget, getComment } from "@/lib/data/comments";
+import { createStaffNotifications } from "@/lib/data/staff-notifications";
 import { db } from "@/lib/db/client";
-import { comment as commentTable } from "@/lib/db/app-schema";
+import { blogPost, comment as commentTable, project } from "@/lib/db/app-schema";
 
 /**
  * Posting and deleting comments.
@@ -111,6 +113,40 @@ export async function postComment(formData: FormData): Promise<CommentResult> {
     replyToId,
     isDeleted: false,
     createdAt: new Date().toISOString(),
+  });
+
+  after(async () => {
+    try {
+      let targetTitle = "a post";
+      if (label === "blog_post") {
+        const [post] = await db
+          .select({ title: blogPost.title })
+          .from(blogPost)
+          .where(eq(blogPost.id, targetId))
+          .limit(1);
+        if (post?.title) targetTitle = `"${post.title}"`;
+      } else if (label === "project") {
+        const [proj] = await db
+          .select({ title: project.title })
+          .from(project)
+          .where(eq(project.id, targetId))
+          .limit(1);
+        if (proj?.title) targetTitle = `"${proj.title}"`;
+      }
+
+      const author = await getUserProfile(who.userId);
+      const authorName = author?.fullName || author?.username || "Someone";
+
+      await createStaffNotifications({
+        kind: "comment",
+        title: `${authorName} ${replyToId ? "replied to a comment" : "commented"} on ${targetTitle}`,
+        body: body.length > 120 ? `${body.slice(0, 117)}...` : body,
+        url: `${pathFor(label, slug)}#comments`,
+        actorAccountId: who.userId,
+      });
+    } catch (err) {
+      console.error("Failed to notify staff of new comment:", err);
+    }
   });
 
   if (slug) revalidatePath(pathFor(label, slug));

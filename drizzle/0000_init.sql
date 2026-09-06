@@ -766,6 +766,19 @@ CREATE TABLE "app"."comment" (
     CONSTRAINT "comment_target_kind_check" CHECK ("target_kind" IN ('blog_post', 'project'))
 );--> statement-breakpoint
 
+CREATE TABLE "app"."staff_notification" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    "account_id" uuid NOT NULL REFERENCES "app"."account"("id") ON DELETE CASCADE,
+    "kind" text NOT NULL,
+    "title" text NOT NULL,
+    "body" text NOT NULL,
+    "url" text NOT NULL,
+    "is_read" boolean NOT NULL DEFAULT false,
+    "is_noticed" boolean NOT NULL DEFAULT false,
+    "created_at" timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT "staff_notification_kind_check" CHECK ("kind" IN ('comment', 'guestbook'))
+);--> statement-breakpoint
+
 -- ---------------------------------------------------------------------------
 -- Indexes on the columns the site actually filters and orders by
 -- ---------------------------------------------------------------------------
@@ -782,6 +795,7 @@ CREATE INDEX "application_status_idx" ON "app"."application" ("status_id");--> s
 -- Every request by a staff account reads that account's whole grant set, so
 -- this is the one lookup on the table that happens on every admin page.
 CREATE INDEX "admin_access_account_idx" ON "app"."admin_access" ("account_id");--> statement-breakpoint
+CREATE INDEX "staff_notification_account_idx" ON "app"."staff_notification" ("account_id", "is_read", "is_noticed", "created_at" DESC);--> statement-breakpoint
 
 -- ---------------------------------------------------------------------------
 -- Row Level Security, on every table, with no policies

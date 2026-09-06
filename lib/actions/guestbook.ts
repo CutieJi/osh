@@ -7,6 +7,7 @@ import { after } from "next/server";
 import { auth } from "@/auth";
 import { getUserProfile } from "@/lib/auth/profile";
 import { db } from "@/lib/db/client";
+import { createStaffNotifications } from "@/lib/data/staff-notifications";
 import { notifyNewGuestbookMessage } from "@/lib/email/guestbook-notify";
 import { guestMessage } from "@/lib/db/app-schema";
 import { MAX_MESSAGE_LENGTH, MAX_PINNED, MIN_MESSAGE_LENGTH } from "@/lib/data/guestbook-tree";
@@ -117,7 +118,23 @@ export async function sendMessage(formData: FormData): Promise<ActionResult> {
    * same promise with a bare `except`: a mail server having a bad day must not
    * stop someone leaving a message.
    */
-  if (created) after(() => void notifyNewGuestbookMessage(created.id));
+  if (created) {
+    after(() => void notifyNewGuestbookMessage(created.id));
+    after(async () => {
+      try {
+        const authorName = profile.fullName || profile.username || "Someone";
+        await createStaffNotifications({
+          kind: "guestbook",
+          title: `${authorName} ${replyTo ? "replied to a guestbook message" : "signed the guestbook"}`,
+          body: text.length > 120 ? `${text.slice(0, 117)}...` : text,
+          url: GUESTBOOK_PATH,
+          actorAccountId: profile.id,
+        });
+      } catch (err) {
+        console.error("Failed to notify staff of guestbook message:", err);
+      }
+    });
+  }
 
   revalidatePath(GUESTBOOK_PATH);
   return { ok: true, notice: replyTo ? "Reply posted." : "Message posted." };
