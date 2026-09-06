@@ -10,6 +10,11 @@ import {
 } from "@/lib/actions/notifications";
 import { notify } from "@/lib/notify";
 
+// Global module-level tracker so multiple component instances or StrictMode remounts
+// never toast the same notification ID twice in a browser session.
+const toastedIds = new Set<string>();
+let activeCheckPromise: Promise<void> | null = null;
+
 /**
  * Automatically alerts superadmin and staff when they open the site if there
  * are unnoticed comments or guestbook messages ("when open then when not already notice").
@@ -26,11 +31,19 @@ export function StaffNotificationListener() {
         const res = await fetchUnnoticedNotifications();
         if (!res.ok || !res.data || res.data.length === 0) return;
 
+        // Filter out any notifications that have already been toasted in this session
+        const freshItems = res.data.filter((item) => !toastedIds.has(item.id));
         const ids = res.data.map((item) => item.id);
-        // Acknowledge as noticed so subsequent refreshes/pages won't alert again
+
+        // Acknowledge all as noticed so subsequent refreshes/pages won't alert again
         await markNoticedAction(ids);
 
-        const items = res.data;
+        if (freshItems.length === 0) return;
+
+        // Track as toasted immediately
+        freshItems.forEach((item) => toastedIds.add(item.id));
+
+        const items = freshItems;
         // 1 item: toast directly
         if (items.length === 1) {
           const item = items[0];
@@ -55,6 +68,7 @@ export function StaffNotificationListener() {
               </div>
             </div>,
             "info",
+            { id: `staff-notif-${item.id}` },
           );
         } else if (items.length === 2) {
           // 2 items: stagger them with 350ms so Sonner stacks them smoothly without overlap
@@ -81,6 +95,7 @@ export function StaffNotificationListener() {
                   </div>
                 </div>,
                 "info",
+                { id: `staff-notif-${item.id}` },
               );
             }, index * 350);
           });
@@ -108,6 +123,7 @@ export function StaffNotificationListener() {
               </div>
             </div>,
             "info",
+            { id: `staff-notif-${latest.id}` },
           );
 
           setTimeout(() => {
@@ -121,16 +137,22 @@ export function StaffNotificationListener() {
                 </p>
               </div>,
               "info",
+              { id: "staff-notif-summary" },
             );
           }, 400);
         }
       } catch (err) {
         console.error("Failed to check unnoticed notifications:", err);
+      } finally {
+        activeCheckPromise = null;
       }
     }
 
-    void checkNotifications();
+    if (!activeCheckPromise) {
+      activeCheckPromise = checkNotifications();
+    }
   }, []);
 
   return null;
 }
+

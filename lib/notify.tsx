@@ -21,17 +21,21 @@ import { Toast, type ToastVariant } from "@/components/site/toast";
  * be parsed as HTML. React never parses either, so the hazard is gone, but
  * passing an element is still how a message gets a link in it.
  */
-export function notify(content: React.ReactNode, variant: ToastVariant = "info") {
+export function notify(
+  content: React.ReactNode,
+  variant: ToastVariant = "info",
+  options?: { id?: string | number; duration?: number },
+) {
   return sonner.custom(
     (id) => (
       <Toast variant={variant} onDismiss={() => sonner.dismiss(id)}>
         {content}
       </Toast>
     ),
-    // Hovering or focusing the stack holds it open, which sonner does for the
-    // whole region -- six seconds is not long enough to read a long error, and
-    // the close button is inside the very element that is about to disappear.
-    { duration: AUTO_DISMISS_MS },
+    {
+      id: options?.id,
+      duration: options?.duration ?? AUTO_DISMISS_MS,
+    },
   );
 }
 

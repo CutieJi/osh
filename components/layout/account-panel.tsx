@@ -1,8 +1,6 @@
 import Link from "next/link";
 
 import { AccountMenu } from "@/components/layout/account-menu";
-import { StaffNotificationBell } from "@/components/notifications/staff-notification-bell";
-import { StaffNotificationListener } from "@/components/notifications/staff-notification-listener";
 import { SignOutButton } from "@/components/sign-out-button";
 import { SkeletonBar } from "@/components/skeleton";
 import { signOutHere } from "@/lib/actions/auth";
@@ -96,14 +94,12 @@ export async function AccountPanel() {
   const role = viewer.role;
 
   return (
-    <>
-      <StaffNotificationListener />
-      <AccountMenu
-        name={viewer.fullName}
-        username={viewer.username}
-        imageUrl={viewer.profileImage}
-        role={role}
-      >
+    <AccountMenu
+      name={viewer.fullName}
+      username={viewer.username}
+      imageUrl={viewer.profileImage}
+      role={role}
+    >
         {/* Admin above, and the act that costs something last. */}
         {staff && (
           <Link href="/admin" className={`${MENU_ROW} ${HOVER_ADMIN}`}>
@@ -125,7 +121,6 @@ export async function AccountPanel() {
           />
         </form>
       </AccountMenu>
-    </>
   );
 }
 
