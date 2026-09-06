@@ -69,11 +69,11 @@ export function SidebarRail({
 
             {/* The rail's single theme toggle and notification bell live here. */}
             <div className="flex items-center justify-between w-full gap-2">
-              <div className="text-[15px] text-zinc-400 hover:text-zinc-300 transition-all duration-300">
+              <div className="text-[15px] text-zinc-400 hover:text-zinc-300 transition-all duration-300 truncate">
                 @{about.username}
               </div>
-              <div className="flex items-center gap-1">
-                <StaffNotificationBell align="left" direction="down" />
+              <div className="flex items-center gap-2 shrink-0">
+                <StaffNotificationBell bare align="left" direction="down" />
                 <ThemeToggle bare />
               </div>
             </div>

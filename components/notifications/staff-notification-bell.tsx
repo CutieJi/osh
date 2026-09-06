@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
@@ -87,11 +88,13 @@ export function StaffNotificationBell({
   align = "right",
   direction = "down",
   iconSize = "h-4 w-4",
+  bare = false,
   className,
 }: {
   align?: "left" | "right";
   direction?: "up" | "down";
   iconSize?: string;
+  bare?: boolean;
   className?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -99,28 +102,32 @@ export function StaffNotificationBell({
   const [unreadCount, setUnreadCount] = useState(0);
   const [items, setItems] = useState<StaffNotificationItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [coords, setCoords] = useState<{ top: number; left?: number; right?: number } | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (isInitial = false) => {
     try {
       const res = await fetchStaffNotifications();
       if (res.ok && res.data) {
         setIsLoggedIn(true);
         setUnreadCount(res.data.unreadCount);
         setItems(res.data.notifications);
-      } else {
+      } else if (isInitial && (typeof window === "undefined" || !(window as any).__FORCE_BELL)) {
         setIsLoggedIn(false);
       }
     } catch {
-      setIsLoggedIn(false);
+      if (isInitial && (typeof window === "undefined" || !(window as any).__FORCE_BELL)) {
+        setIsLoggedIn(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    void loadData();
+    void loadData(true);
 
     // Re-check unread count when returning to the tab
-    const onFocus = () => void loadData();
+    const onFocus = () => void loadData(false);
     window.addEventListener("focus", onFocus);
     return () => window.removeEventListener("focus", onFocus);
   }, [loadData]);
@@ -128,31 +135,66 @@ export function StaffNotificationBell({
   useEffect(() => {
     if (!open) return;
 
+    const updateCoords = () => {
+      if (!wrapperRef.current) return;
+      const rect = wrapperRef.current.getBoundingClientRect();
+      const isMobile = window.innerWidth < 640;
+      if (isMobile) {
+        setCoords({ top: 68, left: 12, right: 12 });
+      } else {
+        const top = direction === "up" ? rect.top - 8 : rect.bottom + 8;
+        if (align === "right") {
+          const right = Math.max(16, window.innerWidth - rect.right);
+          setCoords({ top, right });
+        } else {
+          // If aligning left, ensure it doesn't overflow right edge of viewport
+          const left = Math.min(rect.left, window.innerWidth - 368);
+          setCoords({ top, left: Math.max(16, left) });
+        }
+      }
+    };
+
+    updateCoords();
+    window.addEventListener("resize", updateCoords);
+    window.addEventListener("scroll", updateCoords, true);
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     const onPointerDown = (e: PointerEvent) => {
-      if (!wrapperRef.current?.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (
+        !wrapperRef.current?.contains(target) &&
+        !popoverRef.current?.contains(target)
+      ) {
         setOpen(false);
       }
     };
 
+    const timer = setTimeout(() => {
+      document.addEventListener("pointerdown", onPointerDown);
+    }, 10);
+
     document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("pointerdown", onPointerDown);
     return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", updateCoords);
+      window.removeEventListener("scroll", updateCoords, true);
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("pointerdown", onPointerDown);
     };
-  }, [open]);
+  }, [open, direction, align]);
 
   if (!isLoggedIn) return null;
 
-  const handleToggle = () => {
-    if (!open) {
-      setLoading(true);
-      void loadData().finally(() => setLoading(false));
+  const handleToggle = (e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
     }
     setOpen((prev) => !prev);
+    if (!open) {
+      void loadData(false);
+    }
   };
 
   const handleMarkRead = async (id: string, e?: React.MouseEvent) => {
@@ -178,9 +220,10 @@ export function StaffNotificationBell({
         type="button"
         onClick={handleToggle}
         className={cn(
-          "relative inline-flex items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400",
-          className ? className : "h-8 w-8 text-zinc-400 hover:text-zinc-200",
-          open && "bg-zinc-800 text-zinc-200",
+          "group relative inline-flex cursor-pointer items-center justify-center rounded-md text-zinc-500 transition-colors hover:text-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400",
+          !bare && (className ? className : "h-8 w-8 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"),
+          !bare && open && "bg-zinc-800 text-zinc-200",
+          bare && open && "text-zinc-200",
         )}
         title={unreadCount > 0 ? `${unreadCount} unread notification(s)` : "Notifications"}
         aria-label="Notifications"
@@ -188,19 +231,31 @@ export function StaffNotificationBell({
       >
         <BellIcon className={iconSize} />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-indigo-600 px-1 text-[10px] font-bold text-white shadow-sm ring-2 ring-black">
+          <span className="pointer-events-none absolute -top-1 -right-1 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-indigo-600 px-0.5 text-[9px] font-bold text-white shadow-sm ring-1 ring-black">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </button>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <div
+          ref={popoverRef}
+          id="notification-popover"
+          style={
+            coords
+              ? {
+                  position: "fixed",
+                  top: `${coords.top}px`,
+                  ...(coords.left !== undefined ? { left: `${coords.left}px` } : {}),
+                  ...(coords.right !== undefined ? { right: `${coords.right}px` } : {}),
+                }
+              : undefined
+          }
           className={cn(
-            "fixed inset-x-3 top-[4.25rem] z-50 rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl backdrop-blur-xl",
-            "sm:absolute sm:inset-auto sm:w-88 sm:max-w-sm",
-            direction === "up" ? "sm:bottom-full sm:mb-2 sm:top-auto" : "sm:top-full sm:mt-2 sm:bottom-auto",
-            align === "right" ? "sm:right-0 sm:left-auto" : "sm:left-0 sm:right-auto",
+            "fixed z-50 rounded-xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-2xl backdrop-blur-xl",
+            "w-[calc(100vw-1.5rem)] sm:w-88 max-w-sm",
+            !coords && "left-3 right-3 top-[4.25rem]",
+            direction === "up" && "translate-y-[-100%]",
           )}
         >
           <div className="flex items-center justify-between border-b border-zinc-800/80 px-3 py-2">
@@ -290,7 +345,8 @@ export function StaffNotificationBell({
               ))
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

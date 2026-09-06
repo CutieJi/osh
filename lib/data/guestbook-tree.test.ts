@@ -37,7 +37,7 @@ const ids = (nodes: ThreadMessage[]) => nodes.map((node) => node.id);
 
 describe("maskEmail", () => {
   it("keeps enough to be recognisable and hides the rest", () => {
-    assert.equal(maskEmail("ridwaanhall@example.com"), "ri********l@example.com");
+    assert.equal(maskEmail("roshingel@example.com"), "ro******l@example.com");
   });
 
   it("masks the short locals by their own rules", () => {
@@ -62,8 +62,8 @@ describe("maskEmail", () => {
   });
 
   it("never reveals the local part it masked", () => {
-    const masked = maskEmail("ridwaanhall@example.com");
-    assert.ok(!masked.includes("ridwaanhall"));
+    const masked = maskEmail("roshingel@example.com");
+    assert.ok(!masked.includes("roshingel"));
     assert.ok(masked.endsWith("@example.com"));
   });
 });

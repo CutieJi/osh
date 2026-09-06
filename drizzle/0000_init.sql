@@ -72,7 +72,7 @@ CREATE SCHEMA IF NOT EXISTS "app";--> statement-breakpoint
 
 CREATE TABLE "app"."media_asset" (
     "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    -- The object key inside the storage bucket, e.g. `profile/ridwaanhall.webp`.
+    -- The object key inside the storage bucket, e.g. `profile/roshingel.webp`.
     -- Content-addressed by `lib/storage/keys.ts`, so the same bytes uploaded
     -- twice are one row.
     "storage_key" text NOT NULL,

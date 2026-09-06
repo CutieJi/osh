@@ -20,7 +20,7 @@ import {
  *
  * **Reference counting is not defensive here, it is load-bearing**, and the
  * live data says so plainly: the author
- * photo `profile/ridwaanhall_20250913_2.webp` is named by 21 rows -- all twenty
+ * photo `profile/roshingel.webp` is named by 21 rows -- all twenty
  * blog posts and the profile -- `logo/al_mukmin_ngruki.webp` by three
  * organisations, `logo/linkedin.webp` by two. Deleting because *one* referring
  * row went away would break the live images on all the others.
@@ -34,7 +34,7 @@ import {
  * Every column that names a stored file.
  *
  * These held the storage key itself -- five `varchar` columns each repeating
- * `profile/ridwaanhall_20250913_2.webp` in full. They are foreign keys into
+ * `profile/roshingel.webp` in full. They are foreign keys into
  * `media_asset` now, so the key is written once and a row points at it, and the
  * count below is a count of pointers rather than of repeated strings.
  *

@@ -3,7 +3,7 @@
  * Supabase bucket and the real database.
  *
  * **The check that matters is that a shared file survives.** In the live data
- * `profile/ridwaanhall_20250913_2.webp` is named by twenty-one rows and
+ * `profile/roshingel.webp` is named by twenty-one rows and
  * `logo/al_mukmin_ngruki.webp` by three, so deleting a file because *one*
  * referring row went away would break the images on all the others. Nothing here
  * goes near those rows: it creates two throwaway organizations, gives them the
@@ -89,7 +89,7 @@ try {
   check("an empty key is never treated as an orphan", (await isReferenced("")) === true);
   check(
     "a key the live data shares is referenced",
-    await isReferenced("profile/ridwaanhall_20250913_2.webp"),
+    await isReferenced("profile/roshingel.webp"),
   );
 
   /*
