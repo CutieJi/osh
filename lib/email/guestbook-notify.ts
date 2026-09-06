@@ -49,7 +49,7 @@ function formatTimestamp(iso: string): string {
 }
 
 function guestbookUrl(): string {
-  const base = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.vercel.app").replace(/\/$/, "");
+  const base = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.site").replace(/\/$/, "");
   return `${base}/guestbook/`;
 }
 
@@ -76,15 +76,15 @@ export async function notifyNewGuestbookMessage(messageId: string): Promise<void
 
     const parent = row.replyToId
       ? (
-          await db
-            .select({
-              message: guestMessage.body,
-              userId: guestMessage.accountId,
-            })
-            .from(guestMessage)
-            .where(eq(guestMessage.id, row.replyToId))
-            .limit(1)
-        )[0]
+        await db
+          .select({
+            message: guestMessage.body,
+            userId: guestMessage.accountId,
+          })
+          .from(guestMessage)
+          .where(eq(guestMessage.id, row.replyToId))
+          .limit(1)
+      )[0]
       : undefined;
 
     const profiles = await getUserProfiles(

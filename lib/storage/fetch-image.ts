@@ -111,7 +111,7 @@ async function readCapped(response: Response): Promise<Uint8Array | null> {
   let total = 0;
 
   try {
-    for (;;) {
+    for (; ;) {
       const { done, value } = await reader.read();
       if (done) break;
       total += value.length;
@@ -172,7 +172,7 @@ export async function fetchLinkedImage(
           // few negotiate on Accept. Both are cheap to satisfy and awkward to
           // diagnose from a bare status code.
           Accept: "image/*,*/*;q=0.8",
-          "User-Agent": "roshingel.vercel.app admin image fetch",
+          "User-Agent": "roshingel.site admin image fetch",
         },
         signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, remaining)),
       });

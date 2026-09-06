@@ -85,10 +85,10 @@ describe("sanitizeRichText", () => {
    */
   it("treats a host that merely contains the site's name as somebody else's", () => {
     for (const href of [
-      "https://roshingel.vercel.app.evil.test/",
-      "https://evil.test/?ref=roshingel.vercel.app",
-      "https://evil.test/roshingel.vercel.app",
-      "https://notroshingel.vercel.app",
+      "https://roshingel.site.evil.test/",
+      "https://evil.test/?ref=roshingel.site",
+      "https://evil.test/roshingel.site",
+      "https://notroshingel.site",
     ]) {
       const out = sanitizeRichText(`<a href="${href}">out</a>`);
       assert.ok(out.includes('target="_blank"'), `${href} should be external: ${out}`);
@@ -97,12 +97,12 @@ describe("sanitizeRichText", () => {
   });
 
   it("counts a subdomain of the site as the site", () => {
-    const out = sanitizeRichText('<a href="https://www.roshingel.vercel.app/blog">in</a>');
+    const out = sanitizeRichText('<a href="https://www.roshingel.site/blog">in</a>');
     assert.ok(!out.includes("_blank"), out);
   });
 
   it("leaves an internal link in the same tab", () => {
-    const out = sanitizeRichText('<a href="https://roshingel.vercel.app/blog">in</a>');
+    const out = sanitizeRichText('<a href="https://roshingel.site/blog">in</a>');
     assert.ok(!out.includes("_blank"), out);
   });
 

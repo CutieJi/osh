@@ -55,11 +55,11 @@ function baseSeo() {
   return {
     twitter_site: "@roshingel",
     twitter_creator: "@roshingel",
-    twitter_image_alt: "roshingel.vercel.app - Rosh Ingel Portfolio",
+    twitter_image_alt: "roshingel.site - Rosh Ingel Portfolio",
   };
 }
 
-function imageAlt(title: string, context = "roshingel.vercel.app"): string {
+function imageAlt(title: string, context = "roshingel.site"): string {
   return title ? `${title} - ${context}` : `${context} - Portfolio and Blog`;
 }
 

@@ -6,12 +6,12 @@
  * a lag of weeks, not a refactor.
  */
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.vercel.app").replace(
+export const SITE_URL = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://roshingel.site").replace(
   /\/+$/,
   "",
 );
 
-export const SITE_NAME = "roshingel.vercel.app";
+export const SITE_NAME = "roshingel.site";
 export const AUTHOR = "Rosh Ingel";
 
 export const DEFAULT_DESCRIPTION_LENGTH = 160;
@@ -51,7 +51,7 @@ export const CONTENT_TYPES = {
 
 export const COMMON_KEYWORDS = {
   personal: [
-    "Rosh Ingel", "roshingel", "roshingel.vercel.app", "cutieji",
+    "Rosh Ingel", "roshingel", "roshingel.site", "cutieji",
     "rosh ingel blog", "rosh ingel portfolio",
     "database engineer", "web developer", "full stack developer",
   ],

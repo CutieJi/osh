@@ -14,7 +14,7 @@
  */
 
 /** `contact_autoreply.txt` */
-export const contactAutoreplyText = `roshingel.vercel.app — Contact Form
+export const contactAutoreplyText = `roshingel.site — Contact Form
 ════════════════════════════════════════════════════
 
 Hi {{ display_name }},
@@ -35,11 +35,11 @@ Rosh typically responds within 1–3 business days.
 For anything urgent, reply directly to this email.
 
 ════════════════════════════════════════════════════
-roshingel.vercel.app · Automated notice
+roshingel.site · Automated notice
 `;
 
 /** `contact_notification.txt` */
-export const contactNotificationText = `roshingel.vercel.app — New Message
+export const contactNotificationText = `roshingel.site — New Message
 ════════════════════════════════════════════════════
 
 New contact form submission.
@@ -56,16 +56,16 @@ MESSAGE
 Reply to this email to respond directly to {{ sender_email }}.
 
 ════════════════════════════════════════════════════
-roshingel.vercel.app · Automated notification
+roshingel.site · Automated notification
 `;
 
 /** `guestbook_autoreply.txt` */
-export const guestbookAutoreplyText = `roshingel.vercel.app — Guestbook
+export const guestbookAutoreplyText = `roshingel.site — Guestbook
 ════════════════════════════════════════════════════
 
 Hi {{ display_name }},
 
-Your guestbook entry is now live at roshingel.vercel.app.
+Your guestbook entry is now live at roshingel.site.
 It's visible to everyone who visits the guestbook.
 
 YOUR ENTRY
@@ -85,11 +85,11 @@ Replying to this email reaches Rosh directly.
 If someone answers you on the guestbook, you will hear about it.
 
 ════════════════════════════════════════════════════
-roshingel.vercel.app · Automated notice
+roshingel.site · Automated notice
 `;
 
 /** `guestbook_notification.txt` */
-export const guestbookNotificationText = `roshingel.vercel.app — New Entry
+export const guestbookNotificationText = `roshingel.site — New Entry
 ════════════════════════════════════════════════════
 
 New guestbook entry.
@@ -110,16 +110,16 @@ OPEN GUESTBOOK
   {{ guestbook_url }}
 
 ════════════════════════════════════════════════════
-roshingel.vercel.app · Automated notification
+roshingel.site · Automated notification
 `;
 
 /** `guestbook_reply_notification.txt` */
-export const guestbookReplyNotificationText = `roshingel.vercel.app — Reply
+export const guestbookReplyNotificationText = `roshingel.site — Reply
 ════════════════════════════════════════════════════
 
 Hi {{ original_name }},
 
-{{ reply_name }} replied to your guestbook entry at roshingel.vercel.app.
+{{ reply_name }} replied to your guestbook entry at roshingel.site.
 
 YOUR ORIGINAL ENTRY
 ──────────────────────────────────────────────────────
@@ -138,5 +138,5 @@ To answer {{ reply_name }}, reply on the guestbook.
 Replying to this email reaches Rosh instead.
 
 ════════════════════════════════════════════════════
-roshingel.vercel.app · Reply notification
+roshingel.site · Reply notification
 `;

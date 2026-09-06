@@ -1,13 +1,13 @@
-# roshingel.vercel.app
+# roshingel.site
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white)](https://typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres-3FCF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com/)
 
-![roshingel.vercel.app](public/image.png)
+![roshingel.site](public/image.png)
 
-> **The developer portfolio and blog behind [roshingel.vercel.app](https://roshingel.vercel.app) by Rosh Ingel — database-backed content with an admin panel, live GitHub and WakaTime dashboards, an OAuth guestbook with threaded replies, and light and dark themes. Fork it and make it your own; see [Making It Your Own](#making-it-your-own) below.**
+> **The developer portfolio and blog behind [roshingel.site](https://roshingel.site) by Rosh Ingel — database-backed content with an admin panel, live GitHub and WakaTime dashboards, an OAuth guestbook with threaded replies, and light and dark themes. Fork it and make it your own; see [Making It Your Own](#making-it-your-own) below.**
 
 ## Key Features
 
@@ -106,7 +106,7 @@ Two related front-end details:
 
 ## PageSpeed Insights
 
-Scores for the reference deployment at [roshingel.vercel.app](https://roshingel.vercel.app):
+Scores for the reference deployment at [roshingel.site](https://roshingel.site):
 
 [![Desktop: 99.5](https://img.shields.io/badge/Desktop-99.5-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-vercel-app/rstqtcxhc0?form_factor=desktop)
 [![Mobile: 99](https://img.shields.io/badge/Mobile-99-success?style=for-the-badge)](https://pagespeed.web.dev/analysis/https-roshingel-vercel-app/rstqtcxhc0?form_factor=mobile)
@@ -306,4 +306,4 @@ Apache License 2.0 - See [LICENSE](LICENSE) for details.
 
 ---
 
-**[roshingel.vercel.app](https://roshingel.vercel.app)** — Rosh Ingel's personal developer portfolio and blog.
+**[roshingel.site](https://roshingel.site)** — Rosh Ingel's personal developer portfolio and blog.
