@@ -1,8 +1,8 @@
 /**
  * A place, rendered the way it was stored.
  *
- * Locations were free text -- `"Surakarta, Central Java, Indonesia"` on one row,
- * `"Remote"` on another, `"Yogyakarta, Indonesia 🇮🇩"` on a third -- repeated
+ * Locations were free text -- `"Manila, National Capital Region, Philippines"` on one row,
+ * `"Remote"` on another, `"Manila, Philippines 🇵🇭"` on a third -- repeated
  * across experiences, education, applications and job openings, with the same
  * city spelled differently in different places. They are rows now, so a place
  * is written once and pointed at.

@@ -207,7 +207,7 @@ const orgSlugs = new Set(organizations.map((row) => row.slug));
  *
  * The credential URL is the real identity, and the live data is why: four
  * entries on this page are already stored under a *different title* -- one is
- * listed in Indonesian as "Machine Learning Terapan" where the record says
+ * listed in Pilipino as "Gamit na Pagkatuto ng Makina" where the record says
  * "Applied Machine Learning", and another is simply reworded between the two --
  * so a title comparison would have inserted every one of them a second time.
  * Their URLs match to the character.

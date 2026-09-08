@@ -10,25 +10,25 @@ import { locationLabel } from "./location";
 describe("locationLabel", () => {
   it("joins the parts in the order they narrow", () => {
     assert.equal(
-      locationLabel({ city: "Sleman", region: "Yogyakarta", country: "Indonesia", flag: null }),
-      "Sleman, Yogyakarta, Indonesia",
+      locationLabel({ city: "Caloocan City", region: "Metro Manila", country: "Philippines", flag: null }),
+      "Caloocan City, Metro Manila, Philippines",
     );
   });
 
   it("puts the flag after the country, separated by a space", () => {
     assert.equal(
-      locationLabel({ city: "Sleman", region: null, country: "Indonesia", flag: "🇮🇩" }),
-      "Sleman, Indonesia 🇮🇩",
+      locationLabel({ city: "Caloocan City", region: null, country: "Philippines", flag: "🇵🇭" }),
+      "Caloocan City, Philippines 🇵🇭",
     );
   });
 
   it("skips a missing part rather than leaving a dangling comma", () => {
-    assert.equal(locationLabel({ city: null, region: null, country: "Indonesia", flag: null }), "Indonesia");
-    assert.equal(locationLabel({ city: "Sleman", region: null, country: null, flag: null }), "Sleman");
+    assert.equal(locationLabel({ city: null, region: null, country: "Philippines", flag: null }), "Philippines");
+    assert.equal(locationLabel({ city: "Caloocan City", region: null, country: null, flag: null }), "Caloocan City");
   });
 
   it("falls back to the flag alone when nothing is named", () => {
-    assert.equal(locationLabel({ city: null, region: null, country: null, flag: "🇮🇩" }), "🇮🇩");
+    assert.equal(locationLabel({ city: null, region: null, country: null, flag: "🇵🇭" }), "🇵🇭");
   });
 
   it("returns an empty string when there is no location at all", () => {
@@ -38,6 +38,6 @@ describe("locationLabel", () => {
   });
 
   it("treats a blank string as absent, not as a part", () => {
-    assert.equal(locationLabel({ city: "", region: "", country: "Indonesia", flag: null }), "Indonesia");
+    assert.equal(locationLabel({ city: "", region: "", country: "Philippines", flag: null }), "Philippines");
   });
 });

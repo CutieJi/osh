@@ -237,8 +237,8 @@ export async function getOpenToWorkData(): Promise<OpenToWorkData | null> {
 
   /*
    * The location lists read `body` rather than rebuilding from `location_id`.
-   * Both are stored -- the id is what makes "Indonesia" here the same row as
-   * "Indonesia" on an experience -- and the text is the string that was
+   * Both are stored -- the id is what makes "Philippines" here the same row as
+   * "Philippines" on an experience -- and the text is the string that was
    * written, so reading it is the shortest path to rendering it unchanged.
    */
   const lists = byKind(items);

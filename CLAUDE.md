@@ -838,8 +838,8 @@ seen.
 - **A certificate's identity is its credential URL, not its title.** The 104
   certifications imported from a saved LinkedIn page were deduplicated against
   what was already stored, and four of them were there already *under different
-  titles* — one stored in English and listed in Indonesian
-  ("Machine Learning Terapan" against "Applied Machine Learning"), another
+  titles* — one stored in English and listed in Filipino
+  ("Gamit na Pagkatuto ng Makina" against "Applied Machine Learning"), another
   simply reworded between the two. Matching on title would have inserted all
   four a second time; their `dicoding.com/certificates/…` and
   `linkedin.com/learning/certificates/…` links match to the character. Compare

@@ -119,7 +119,7 @@ CREATE TABLE "app"."location" (
     "flag" text NOT NULL DEFAULT '',
     "map_url" text NOT NULL DEFAULT '',
     -- The three parts together are the identity. `''` is a legitimate part --
-    -- "Indonesia" with no city is a real value on an application -- so the
+    -- "Philippines" with no city is a real value on an application -- so the
     -- columns default to empty rather than null and the key stays simple.
     CONSTRAINT "location_city_region_country_key" UNIQUE ("city", "region", "country")
 );--> statement-breakpoint
@@ -351,7 +351,7 @@ CREATE TABLE "app"."profile" (
     "image_id" uuid REFERENCES "app"."media_asset"("id") ON DELETE SET NULL,
     "location_id" uuid REFERENCES "app"."location"("id") ON DELETE SET NULL,
     -- The residency reads separately from the city on the profile only: the
-    -- home page says "Boyolali, Indonesia" while the location record carries
+    -- home page says "Manila, Philippines" while the location record carries
     -- the full regency and province pair.
     "residency" text NOT NULL DEFAULT '',
     "is_open_to_work" boolean NOT NULL DEFAULT false,

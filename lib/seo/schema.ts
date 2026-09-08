@@ -336,7 +336,7 @@ export function contactPageSchema(about: AboutData): JsonLd {
       "@type": "ContactPoint",
       email,
       contactType: "customer service",
-      availableLanguage: ["English", "Indonesian"],
+      availableLanguage: ["English", "Filipino"],
       hoursAvailable: {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -350,7 +350,7 @@ export function contactPageSchema(about: AboutData): JsonLd {
       "@type": "ContactPoint",
       url: social.linkedin,
       contactType: "customer service",
-      availableLanguage: ["English", "Indonesian"],
+      availableLanguage: ["English", "Filipino"],
     });
   }
   if (social.github) {
@@ -386,7 +386,7 @@ export function contactPageSchema(about: AboutData): JsonLd {
           validThrough: "2025-12-31",
         },
       ],
-      availableLanguage: ["English", "Indonesian"],
+      availableLanguage: ["English", "Filipino"],
     },
     author: {
       "@type": "Person",

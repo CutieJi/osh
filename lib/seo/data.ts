@@ -233,7 +233,7 @@ export function aboutSeo(about: AboutData): SeoData {
     "about", "biography", "background", "experience", "skills",
   ];
   const location = about.location;
-  const locationStr = `${location.regency}, ${location.country || "Indonesia"} ${location.flag || "🇮🇩"}`;
+  const locationStr = `${location.regency}, ${location.country || "Philippines"} ${location.flag || "🇮🇩"}`;
 
   return {
     title: "In Code, Curiosity, and Care - The Story So Far",
