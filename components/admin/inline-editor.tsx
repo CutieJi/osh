@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CloseIcon, PlusIcon } from "@/components/admin/admin-icons";
 import { Field } from "@/components/admin/field";
@@ -54,6 +54,9 @@ export function InlineEditor({
   const [rows, setRows] = useState(() =>
     initial.map((row, index) => ({ key: `existing-${row.__id ?? index}`, row })),
   );
+  useEffect(() => {
+    setRows(initial.map((row, index) => ({ key: `existing-${row.__id ?? index}`, row })));
+  }, [initial]);
   const [nextKey, setNextKey] = useState(0);
 
   const move = (index: number, by: number) => {
@@ -127,7 +130,7 @@ export function InlineEditor({
               {inline.fields.map((field) => (
                 <Field
                   imageUrls={imageUrls}
-                  key={field.name}
+                  key={`${field.name}-${String(row[field.name] ?? "")}`}
                   field={field}
                   namePrefix={`${inline.name}:${index}:`}
                   value={row[field.name] ?? null}

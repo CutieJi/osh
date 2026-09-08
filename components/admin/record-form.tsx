@@ -145,9 +145,13 @@ export function RecordForm({
   useEffect(() => {
     if (!state || announced.current === state) return;
     announced.current = state;
-    if (state.ok) notify(state.notice, "success");
-    else notify(state.error, "error");
-  }, [state]);
+    if (state.ok) {
+      notify(state.notice, "success");
+      router.refresh();
+    } else {
+      notify(state.error, "error");
+    }
+  }, [state, router]);
 
   const fieldErrors = state && !state.ok ? (state.fieldErrors ?? {}) : {};
 
@@ -211,7 +215,7 @@ export function RecordForm({
       <div className="divide-y divide-zinc-900 rounded-lg border border-zinc-800 bg-zinc-950/40 px-3.5 py-2">
         {fieldset.fields.map((field) => (
           <Field
-            key={field.name}
+            key={`${field.name}-${String(values[field.name] ?? "")}`}
             field={field}
             value={values[field.name] ?? null}
             error={fieldErrors[field.name]}

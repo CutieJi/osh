@@ -138,6 +138,9 @@ function adminBase(model: AdminFormModel): string {
 function invalidate(model: AdminFormModel) {
   for (const tag of MODEL_TAGS[getTableName(model.from)] ?? []) updateTag(tag);
   revalidatePath(adminBase(model));
+  if (model.key === "profile") {
+    revalidatePath("/", "layout");
+  }
 }
 
 /**
