@@ -14,7 +14,7 @@ import {
 } from "@/components/site/openhire-cards";
 import { CvDownload } from "@/components/site/cv-download";
 import { PositionCard } from "@/components/site/position-card";
-import type { Skill } from "@/lib/data/about";
+import type { AboutData, Skill } from "@/lib/data/about";
 import { getAboutData, getSkillsByCategory } from "@/lib/data/about";
 import type { HiringData, OpenToWorkData } from "@/lib/data/openhire";
 import { getHiringData, getOpenToWorkData } from "@/lib/data/openhire";
@@ -56,7 +56,7 @@ export default async function OpenHirePage() {
   const toolsByCategory = openToWork?.show_all_tools_skills ? await getSkillsByCategory() : null;
 
   const openPanel = openToWork ? (
-    <OpenToWorkPanel data={openToWork} tools={toolsByCategory} />
+    <OpenToWorkPanel data={openToWork} tools={toolsByCategory} cv={about.cv} />
   ) : (
     <p className="text-zinc-400">Open to work information is not available at the moment.</p>
   );
@@ -112,15 +112,17 @@ function Panel({ children }: { children: React.ReactNode }) {
 function OpenToWorkPanel({
   data,
   tools,
+  cv,
 }: {
   data: OpenToWorkData;
   tools: Record<string, Skill[]> | null;
+  cv?: AboutData["cv"];
 }) {
   return (
     <Panel>
       {/* The same banner the about page's Intro tab opens with, rather than a
           second CV block with its own layout and one format fewer. */}
-      <CvDownload />
+      <CvDownload cv={cv} />
 
       <SectionCard
         title="Status & Availability"

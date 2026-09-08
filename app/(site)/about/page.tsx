@@ -170,7 +170,7 @@ function Intro({ about, sponsorUrl }: { about: AboutData; sponsorUrl: string }) 
 
   return (
     <div className="mt-4 sm:mt-6">
-      <CvDownload />
+      <CvDownload cv={about.cv} />
 
       <div className="space-y-3 sm:space-y-4">
         <div className="border border-zinc-700 rounded-xl p-4">

@@ -1,4 +1,5 @@
-import { AboutBanner } from "@/components/site/about-banner";
+import { AboutBanner, type BannerAction } from "@/components/site/about-banner";
+import type { AboutData } from "@/lib/data/about";
 
 /**
  * The CV download banner at the top of the about page's Intro tab.
@@ -12,13 +13,21 @@ import { AboutBanner } from "@/components/site/about-banner";
  * routes rather than at the hosted files directly, so the destination can
  * change in the admin without breaking a link someone has already shared.
  */
-const FORMATS = [
-  { href: "/cv", label: "PDF", icon: DownloadIcon },
-  { href: "/cv-latest", label: "Word", icon: DocumentIcon },
-  { href: "/cv-copy", label: "Copy CV", icon: CopyIcon },
-] as const;
+export function CvDownload({ cv }: { cv?: AboutData["cv"] }) {
+  const actions: BannerAction[] = [];
 
-export function CvDownload() {
+  if (cv ? Boolean(cv.main) : true) {
+    actions.push({ href: "/cv", label: "PDF", icon: DownloadIcon });
+  }
+  if (cv ? Boolean(cv.latest) : true) {
+    actions.push({ href: "/cv-latest", label: "Word", icon: DocumentIcon });
+  }
+  if (cv ? Boolean(cv.copy) : true) {
+    actions.push({ href: "/cv-copy", label: "Copy CV", icon: CopyIcon });
+  }
+
+  if (actions.length === 0) return null;
+
   return (
     <AboutBanner
       icon={
@@ -39,8 +48,12 @@ export function CvDownload() {
       }
       title="Curriculum Vitae"
       subtitle="Access my CV in different formats"
-      actions={[...FORMATS]}
-      note="View in PDF, Word format, or get the editable template"
+      actions={actions}
+      note={
+        actions.length > 1
+          ? "View in PDF, Word format, or get the editable template"
+          : "View or download curriculum vitae"
+      }
     />
   );
 }

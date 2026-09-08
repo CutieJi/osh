@@ -165,29 +165,35 @@ function buildEntries(about: AboutData): SearchEntry[] {
     });
   }
 
-  entries.push(
-    {
+  if (about.cv?.main) {
+    entries.push({
       label: "CV PDF",
       keywords: "curriculum vitae cv resume pdf",
       href: "/cv",
       icon: CvPdfIcon,
       section: "Links",
-    },
-    {
+    });
+  }
+
+  if (about.cv?.latest) {
+    entries.push({
       label: "CV Word",
       keywords: "curriculum vitae cv resume word",
       href: "/cv-latest",
       icon: CvWordIcon,
       section: "Links",
-    },
-    {
+    });
+  }
+
+  if (about.cv?.copy) {
+    entries.push({
       label: "CV Copy",
       keywords: "curriculum vitae cv resume copy template",
       href: "/cv-copy",
       icon: CvCopyIcon,
       section: "Links",
-    },
-  );
+    });
+  }
 
   return entries;
 }
